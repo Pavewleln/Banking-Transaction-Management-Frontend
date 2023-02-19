@@ -1,5 +1,5 @@
 import {Disclosure, Menu, Transition} from '@headlessui/react'
-import {Fragment} from "react";
+import {FC, Fragment} from "react";
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {Link} from "react-router-dom";
 
@@ -14,9 +14,12 @@ const navigation = [
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
+interface HeaderInt {
+    authorized: boolean
+}
 
-export const Header = () => {
-    return (
+export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
+    return authorized ? (
         <Disclosure as="nav" className="bg-gray-800">
             {({open}) => (
                 <>
@@ -165,5 +168,5 @@ export const Header = () => {
                 </>
             )}
         </Disclosure>
-    )
+    ) : null
 }
