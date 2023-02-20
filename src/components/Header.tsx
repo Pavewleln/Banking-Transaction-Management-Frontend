@@ -1,7 +1,7 @@
 import {Disclosure, Menu, Transition} from '@headlessui/react'
 import {FC, Fragment} from "react";
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 const navigation = [
     {name: 'Главная', href: '/home', current: true},
@@ -14,6 +14,7 @@ const navigation = [
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
+
 interface HeaderInt {
     authorized: boolean
 }
@@ -42,17 +43,16 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                 <div className="hidden sm:ml-3 sm:block">
                                     <div className="flex space-x-2">
                                         {navigation.map((item) => (
-                                            <Link
+                                            <NavLink
                                                 key={item.name}
                                                 to={item.href}
-                                                className={classNames(
-                                                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                className={({isActive}) => classNames(
+                                                    isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                     'px-3 py-2 rounded-md text-sm font-medium'
                                                 )}
-                                                aria-current={item.current ? 'page' : undefined}
                                             >
                                                 {item.name}
-                                            </Link>
+                                            </NavLink>
                                         ))}
                                     </div>
                                 </div>

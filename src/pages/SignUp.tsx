@@ -88,10 +88,11 @@ export const SignUp: FC = () => {
                             />
                             <ButtonForm isValid={isValid} label={"Зарегистрироваться"}/>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Уже есть аккаунт? <Link to={"/signIn"}
-                                                        className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                Войти
-                            </Link>
+                                Уже есть аккаунт?
+                                <Link to={"/signIn"}
+                                      className="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                                    Войти
+                                </Link>
                             </p>
                         </form>
                     </div>
