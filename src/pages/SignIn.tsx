@@ -1,6 +1,28 @@
+import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {Link} from "react-router-dom";
+import {TextField} from "../components/SignInForm/TextField";
+import {passwordValidation, phoneValidation} from "../utils/validationSignIn";
+import {ButtonForm} from "../components/SignInForm/ButtonForm";
+
+interface ISignInForm {
+    phone: string;
+    password: string;
+}
 
 export const SignIn = () => {
+    const {handleSubmit, control, formState: {isValid}} = useForm<ISignInForm>({
+        defaultValues: {
+            phone: "",
+            password: ""
+        },
+        mode: "onChange"
+    });
+    const {errors} = useFormState({
+        control
+    })
+
+    const onSubmit: SubmitHandler<ISignInForm> = data => console.log(data);
+
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -10,29 +32,36 @@ export const SignIn = () => {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                             Войти
                         </h1>
-                        <form className="space-y-4 md:space-y-6" action="#">
-                            <div>
-                                <label htmlFor="phone"
-                                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Номер телефона</label>
-                                <input type="phone" name="phone" id="phone"
-                                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       placeholder="+7 (900) 000-00-00"/>
-                            </div>
-                            <div>
-                                <label htmlFor="password"
-                                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Пароль</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••"
-                                       className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-                            </div>
-                            <button type="submit"
-                                    className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Войти
-                            </button>
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
+                            {/*Номер телефона*/}
+                            <TextField
+                                error={errors.phone}
+                                control={control}
+                                name={"phone"}
+                                type={"phone"}
+                                validation={phoneValidation}
+                                label={"Номер телефона"}
+                                placeholder={"+7 920 631-11-38"}
+                                id={"phone"}
+                            />
+                            {/*Пароль*/}
+                            <TextField
+                                control={control}
+                                error={errors.password}
+                                name={"password"}
+                                type={"password"}
+                                validation={passwordValidation}
+                                label={"Пароль"}
+                                placeholder={"******"}
+                                id={"password"}
+                            />
+                            <ButtonForm isValid={isValid} label={"Войти"}/>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                Еще нет аккаунта? <Link to={"/signUp"}
-                                                              className="font-medium text-primary-600 hover:underline dark:text-primary-500">
-                                Зарегистрироваться
-                            </Link>
+                                Еще нет аккаунта?
+                                <Link to={"/signUp"}
+                                      className="font-medium text-primary-600 hover:underline dark:text-primary-500">
+                                    Зарегистрироваться
+                                </Link>
                             </p>
                         </form>
                     </div>
