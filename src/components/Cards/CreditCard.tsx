@@ -1,6 +1,6 @@
 import credit_card from "../../assets/img/credir_card.png"
 import {FC} from "react";
-import {Currency} from "../../types/Currency";
+import {Currency} from "../../types/currency";
 
 interface ICreditCard {
     cardDetails?: {

@@ -1,6 +1,5 @@
 import {FC, RefObject, useRef} from "react";
 import {WelcomeStepPage} from "../components/WelcomeStepPage";
-import {Link} from "react-router-dom";
 import {CustomLink} from "../components/CustomLink";
 
 export const Welcome: FC = () => {
@@ -68,7 +67,7 @@ export const Welcome: FC = () => {
                 </button>
             </WelcomeStepPage>
             <WelcomeStepPage anchor={end}
-                transitionTop={() => buttonHandler(start)}
+                             transitionTop={() => buttonHandler(start)}
             >
                 <h1 className="mb-4 text-4xl tracking-tight font-extrabold leading-tight text-gray-900 dark:text-white">
                     Последний шаг

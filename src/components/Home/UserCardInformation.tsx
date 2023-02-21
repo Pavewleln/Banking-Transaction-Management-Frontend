@@ -1,7 +1,7 @@
 import {CreditCard} from "../Cards/CreditCard";
 import {TransferForm} from "../Forms/TransferForm";
 import {ChangeEvent, useState} from "react";
-import {Currency} from "../../types/Currency";
+import {Currency} from "../../types/currency";
 
 export const UserCardInformation = () => {
     const banks: string[] | undefined = ["Bank1", "Bank2", "Bank3"]

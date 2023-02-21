@@ -3,11 +3,7 @@ import {Link} from "react-router-dom";
 import {TextField} from "../components/Forms/TextField";
 import {passwordValidation, phoneValidation} from "../utils/validationForm";
 import {ButtonForm} from "../components/Forms/ButtonForm";
-
-interface ISignInForm {
-    phone: string;
-    password: string;
-}
+import { ISignInForm } from "../types/auth";
 
 export const SignIn = () => {
     const {handleSubmit, control, formState: {isValid}} = useForm<ISignInForm>({

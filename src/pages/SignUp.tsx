@@ -4,13 +4,7 @@ import {TextField} from "../components/Forms/TextField";
 import {nameValidation, passwordValidation, phoneValidation, surnameValidation} from "../utils/validationForm";
 import {ButtonForm} from "../components/Forms/ButtonForm";
 import {FC} from "react";
-
-interface ISignUpForm {
-    name: string,
-    surname: string,
-    phone: string,
-    password: string
-}
+import { ISignUpForm } from "../types/auth";
 
 export const SignUp: FC = () => {
     const {
