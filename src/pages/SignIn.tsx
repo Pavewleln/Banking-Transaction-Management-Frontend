@@ -1,8 +1,8 @@
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {Link} from "react-router-dom";
-import {TextField} from "../components/SignInForm/TextField";
-import {passwordValidation, phoneValidation} from "../utils/validationSignIn";
-import {ButtonForm} from "../components/SignInForm/ButtonForm";
+import {TextField} from "../components/Forms/TextField";
+import {passwordValidation, phoneValidation} from "../utils/validationForm";
+import {ButtonForm} from "../components/Forms/ButtonForm";
 
 interface ISignInForm {
     phone: string;

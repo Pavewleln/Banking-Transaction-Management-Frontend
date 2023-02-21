@@ -30,11 +30,11 @@ export const TextField: FC<TextFieldInt> = ({
     return (
         <div>
             <label htmlFor="phone"
-                   className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                   className="block text-sm font-medium text-gray-900 dark:text-white">
                 {label}
             </label>
             <div className={"text-center"}>
-                <div className={"flex items-center justify-between"}>
+                <div className={"flex items-center justify-between my-3"}>
                     <Controller
                         control={control}
                         name={name}
