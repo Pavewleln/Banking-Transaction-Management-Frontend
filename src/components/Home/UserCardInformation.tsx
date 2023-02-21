@@ -35,7 +35,7 @@ export const UserCardInformation = () => {
                 }
                 <details className="rounded-lg my-2">
                     <summary
-                        className="cursor-pointer w-full p-2 font-medium text-left text-gray-900 rounded-xl dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
+                        className="cursor-pointer w-full p-2 font-medium text-left text-gray-900 rounded-xl dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:underline">
                         Перевести
                     </summary>
                     <TransferForm/>

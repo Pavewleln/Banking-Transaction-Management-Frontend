@@ -7,11 +7,11 @@ function PieChart() {
         options: {
             maintainAspectRatio: false
         },
-        labels: UserData.map((data) => data.year),
+        labels: UserData.map((data) => data.action),
         datasets: [
             {
-                label: "Траты",
-                data: UserData.map((data) => data.userGain),
+                label: "Сумма",
+                data: UserData.map((data) => data.sum),
                 backgroundColor: [
                     "rgba(75,192,192,1)",
                     "#ecf0f1",
@@ -24,6 +24,6 @@ function PieChart() {
             },
         ],
     });
-    return <Pie className={"max-w-md w-full h-auto"} data={userData}/>
+    return <Pie className={"max-w-sm"} data={userData}/>
 }
 export default PieChart

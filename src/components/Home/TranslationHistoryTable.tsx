@@ -11,13 +11,16 @@ interface ITranslationHistoryTable {
 }
 
 export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transactions}) => {
+    function classNames(...classes: string[]) {
+        return classes.filter(Boolean).join(' ')
+    }
     return (
-        <div className="overflow-y-auto w-full max-w-xl shadow-md rounded-lg max-h-80">
+        <div className="overflow-y-auto w-full max-w-xl shadow-md rounded-lg max-h-80 mt-5">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                 <tr>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                        Получатель
+                        Пользователь
                     </th>
                     <th scope="col" className="px-6 py-3">
                         Дата
@@ -43,7 +46,7 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
                         <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
                             {transact.phone}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className={classNames(transact.sum < 0 ? "text-red-600" : "text-green-600", "px-6 py-4")}>
                             {transact.sum}
                         </td>
                     </tr>

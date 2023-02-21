@@ -3,46 +3,41 @@ import PieChart from "../components/Home/PieChart";
 import {TranslationHistoryTable} from "../components/Home/TranslationHistoryTable";
 
 export const UserData = [
+    // сколько перечислил
+    // сколько получил
+    // сколько на счету
+    // сколько взято в кредит
     {
         id: 1,
-        year: 2016,
-        userGain: 80000,
-        userLost: 823,
+        action: "Перечисления",
+        sum: 20000
     },
     {
         id: 2,
-        year: 2017,
-        userGain: 45677,
-        userLost: 345,
+        action: "Получения",
+        sum: 10000
     },
     {
         id: 3,
-        year: 2018,
-        userGain: 78888,
-        userLost: 555,
+        action: "Счета",
+        sum: 90000
     },
     {
         id: 4,
-        year: 2019,
-        userGain: 90000,
-        userLost: 4555,
+        action: "В кредит",
+        sum: 1000000
     },
-    {
-        id: 5,
-        year: 2020,
-        userGain: 4300,
-        userLost: 234,
-    },
+
 ];
 
 export const Home = () => {
-    const transactions = [
+    const transactions: any = [
         {
             _id: "sabkvjbdv",
             recipient: "Иван Куликов",
             date: "20.04.05",
             phone: "89206311138",
-            sum: 2020
+            sum: -2020
         },
         {
             _id: "2",
@@ -56,7 +51,7 @@ export const Home = () => {
             recipient: "Иван Куликов",
             date: "20.04.05",
             phone: "89206311138",
-            sum: 2020
+            sum: -2020
         },
         {
             _id: "4",
@@ -70,7 +65,7 @@ export const Home = () => {
             recipient: "Иван Куликов",
             date: "20.04.05",
             phone: "89206311138",
-            sum: 2020
+            sum: -2020
         },
         {
             _id: "6",
@@ -117,9 +112,9 @@ export const Home = () => {
     ]
     return (
         <div className={"p-4"}>
-            <div className={"flex justify-between flex-col sm:flex-row"}>
+            <div className={"flex justify-between flex-col-reverse sm:flex-row"}>
                 <div className={"bg-gray-100 rounded-xl m-2 p-2 max-w-full w-full"}>
-                    {transactions
+                    {transactions.length >= 1
                         ? <div className={"w-full max-h-full flex justify-around items-center flex-col xl:flex-row"}>
                             <PieChart/>
                             <TranslationHistoryTable transactions={transactions}/>
