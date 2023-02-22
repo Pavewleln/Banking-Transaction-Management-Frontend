@@ -1,20 +1,30 @@
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {TextField} from "../components/Forms/TextField";
 import {passwordValidation, phoneValidation} from "../utils/validationForm";
 import {ButtonForm} from "../components/Forms/ButtonForm";
 import {ISignInForm} from "../types/auth";
 import {useLoginMutation} from "../store/auth/auth.api";
 import {useEffect} from "react";
+import {useAppDispatch} from "../hooks/useAppDispatch";
+import {setToken} from "../store/auth/auth.slice";
 
 export const SignIn = () => {
-    const [login, {data: token, isLoading: isLoadingLogin}] = useLoginMutation()
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const [login, {
+        data: token,
+        isLoading: isLoadingLogin,
+        isSuccess: isLoginSuccess,
+        isError: isLoginError,
+        error: loginError
+    }] = useLoginMutation()
     useEffect(() => {
-        if(token) {
-            console.log(token)
-            localStorage.setItem('jwt-token', token)
+        if (isLoginSuccess && token) {
+            dispatch(setToken({token}))
+            navigate('/home')
         }
-    }, [token])
+    }, [isLoginSuccess])
     const {handleSubmit, control, formState: {isValid}} = useForm<ISignInForm>({
         defaultValues: {
             email: "",

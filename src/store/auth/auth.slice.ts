@@ -1,5 +1,7 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Currency} from "../../types/currency";
+import {IAuth, Token} from "./auth.types";
+import {RootState} from "../store";
 
 interface ICard {
     cardDetails: {
@@ -14,26 +16,34 @@ interface ICard {
 
 interface IAuthState {
     token: string | null,
-    entities?: {
-        _id: string,
-        fullname: string,
-        email: string,
-        password: string
-    }
+    entities: IAuth | null
 }
 
 const initialState: IAuthState = {
-    token: window.localStorage.getItem('jwt-token'),
-    entities: undefined
+    token: localStorage.getItem(Token.JWT) ?? null,
+    entities: null
 }
 
 export const AuthSlice = createSlice({
     name: 'auth',
-    initialState,
-    reducers: {}
+    initialState: initialState,
+    reducers: {
+        setToken: (state, action: PayloadAction<{ token: string | null }>) => {
+            localStorage.setItem(Token.JWT, JSON.stringify(action.payload.token))
+            state.token = action.payload.token
+        },
+        setAuth: (state, action: PayloadAction<{ data: IAuth | null }>) => {
+            state.entities = action.payload.data
+        },
+        logout: (state) => {
+            state.token = null
+            state.entities = null
+            localStorage.removeItem(Token.JWT)
+        }
+    }
 })
-
+export const selectAuth = (state: RootState) => Boolean(state.rootReducer.auth.token)
 const {reducer: authReducer, actions} = AuthSlice;
-const {} = actions
+export const {setToken, setAuth, logout} = actions
 
 export default authReducer

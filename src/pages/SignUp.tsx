@@ -1,14 +1,30 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {TextField} from "../components/Forms/TextField";
 import {fullnameValidation, passwordValidation, phoneValidation} from "../utils/validationForm";
 import {ButtonForm} from "../components/Forms/ButtonForm";
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {useRegisterMutation} from "../store/auth/auth.api";
 import {ISignUpForm} from "../types/auth";
+import {setToken} from "../store/auth/auth.slice";
+import {useAppDispatch} from "../hooks/useAppDispatch";
 
 export const SignUp: FC = () => {
-    const [register, {isLoading: isLoadingRegister}] = useRegisterMutation()
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const [register, {
+        isLoading: isLoadingRegister,
+        data: token,
+        isSuccess: isRegisterSuccess,
+        isError: isRegisterError,
+        error: registerError
+    }] = useRegisterMutation()
+    useEffect(() => {
+        if (isRegisterSuccess && token) {
+            dispatch(setToken({token}))
+            navigate('/home')
+        }
+    }, [isRegisterSuccess])
     const {
         handleSubmit,
         control,

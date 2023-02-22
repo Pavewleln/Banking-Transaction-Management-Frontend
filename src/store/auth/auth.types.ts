@@ -1,5 +1,5 @@
 export interface IAuthResponseLoginRegister {
-    token: string
+    token: string | null
 }
 
 export interface IAuth {

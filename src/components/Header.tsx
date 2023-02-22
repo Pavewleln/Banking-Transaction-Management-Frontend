@@ -21,7 +21,7 @@ interface HeaderInt {
 
 export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
     return authorized ? (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-gray-800 sticky top-0 left-0 right-0">
             {({open}) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -75,7 +75,7 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                            placeholder="Search..."/>
                                 </div>
                                 {/*Дропдаун профиля*/}
-                                <Menu as="div" className="relative ml-3">
+                                <Menu as="div" className="relative ml-3 z-50">
                                     <div>
                                         <Menu.Button
                                             className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">

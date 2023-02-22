@@ -16,7 +16,7 @@ interface ICreditCard {
 export const CreditCard: FC<ICreditCard> = ({cardDetails}) => {
     return (
         <>
-            <div className={"relative w-64 h-36 m-auto"}>
+            <div className={"relative w-64 h-36 m-auto z-0"}>
                 {cardDetails
                     ? <>
                         <img alt={"Кредитная карта"} className={"h-full w-full"} src={credit_card}/>
