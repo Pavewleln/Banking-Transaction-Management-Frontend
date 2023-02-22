@@ -1,10 +1,9 @@
 export interface ISignUpForm {
-    name: string,
-    surname: string,
-    phone: string,
+    fullname: string,
+    email: string,
     password: string
 }
 export interface ISignInForm {
-    phone: string;
+    email: string;
     password: string;
 }

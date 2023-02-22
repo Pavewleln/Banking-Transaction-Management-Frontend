@@ -1,30 +1,37 @@
 import {Link} from "react-router-dom";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {TextField} from "../components/Forms/TextField";
-import {nameValidation, passwordValidation, phoneValidation, surnameValidation} from "../utils/validationForm";
+import {fullnameValidation, passwordValidation, phoneValidation} from "../utils/validationForm";
 import {ButtonForm} from "../components/Forms/ButtonForm";
 import {FC} from "react";
-import { ISignUpForm } from "../types/auth";
+import {useRegisterMutation} from "../store/auth/auth.api";
+import {ISignUpForm} from "../types/auth";
 
 export const SignUp: FC = () => {
+    const [register, {isLoading: isLoadingRegister}] = useRegisterMutation()
     const {
         handleSubmit,
         control,
         formState: {isValid}
     } = useForm<ISignUpForm>({
         defaultValues: {
-            name: "",
-            surname: "",
-            phone: "",
-            password: ""
+            fullname: 'Павел Куликов',
+            email: 'kulikovps2004@gmail.com',
+            password: 'Werbi_223'
         },
         mode: "onChange"
     });
     const {errors} = useFormState({
         control
     })
-    const onSubmit: SubmitHandler<ISignUpForm> = data => {
-        console.log(data)
+    const onSubmit: SubmitHandler<ISignUpForm> = async (registerData) => {
+        try {
+            if (registerData) {
+                await register(registerData)
+            }
+        } catch (err) {
+            console.log(err)
+        }
     };
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -38,36 +45,25 @@ export const SignUp: FC = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
                             {/*Имя*/}
                             <TextField
-                                name={"name"}
-                                type={"name"}
+                                name={"fullname"}
+                                type={"text"}
                                 control={control}
-                                validation={nameValidation}
-                                label={"Имя"}
+                                validation={fullnameValidation}
+                                label={"fullname"}
                                 placeholder={"Иван"}
-                                error={errors.name}
-                                id={"name"}
-                            />
-                            {/*Фамилия*/}
-                            <TextField
-                                name={"surname"}
-                                type={"surname"}
-                                control={control}
-                                validation={surnameValidation}
-                                label={"Фамилия"}
-                                placeholder={"Иванов"}
-                                error={errors.surname}
-                                id={"surname"}
+                                error={errors.fullname}
+                                id={"fullname"}
                             />
                             {/*Номер телефона*/}
                             <TextField
-                                name={"phone"}
-                                type={"phone"}
+                                name={"email"}
+                                type={"email"}
                                 control={control}
                                 validation={phoneValidation}
-                                label={"Номер телефона"}
-                                placeholder={"+7 (920) 631-11-38"}
-                                error={errors.phone}
-                                id={"phone"}
+                                label={"Почта"}
+                                placeholder={"@"}
+                                error={errors.email}
+                                id={"email"}
                             />
                             {/*Пароль*/}
                             <TextField
@@ -80,7 +76,7 @@ export const SignUp: FC = () => {
                                 error={errors.password}
                                 id={"password"}
                             />
-                            <ButtonForm isValid={isValid} label={"Зарегистрироваться"}/>
+                            <ButtonForm isLoading={isLoadingRegister} isValid={isValid} label={"Зарегистрироваться"}/>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Уже есть аккаунт?
                                 <Link to={"/signIn"}

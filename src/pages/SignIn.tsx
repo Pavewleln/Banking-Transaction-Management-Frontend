@@ -3,12 +3,21 @@ import {Link} from "react-router-dom";
 import {TextField} from "../components/Forms/TextField";
 import {passwordValidation, phoneValidation} from "../utils/validationForm";
 import {ButtonForm} from "../components/Forms/ButtonForm";
-import { ISignInForm } from "../types/auth";
+import {ISignInForm} from "../types/auth";
+import {useLoginMutation} from "../store/auth/auth.api";
+import {useEffect} from "react";
 
 export const SignIn = () => {
+    const [login, {data: token, isLoading: isLoadingLogin}] = useLoginMutation()
+    useEffect(() => {
+        if(token) {
+            console.log(token)
+            localStorage.setItem('jwt-token', token)
+        }
+    }, [token])
     const {handleSubmit, control, formState: {isValid}} = useForm<ISignInForm>({
         defaultValues: {
-            phone: "",
+            email: "",
             password: ""
         },
         mode: "onChange"
@@ -17,7 +26,15 @@ export const SignIn = () => {
         control
     })
 
-    const onSubmit: SubmitHandler<ISignInForm> = data => console.log(data);
+    const onSubmit: SubmitHandler<ISignInForm> = async (loginData) => {
+        try {
+            if (loginData) {
+                await login(loginData)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
@@ -31,14 +48,14 @@ export const SignIn = () => {
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
                             {/*Номер телефона*/}
                             <TextField
-                                error={errors.phone}
+                                error={errors.email}
                                 control={control}
-                                name={"phone"}
-                                type={"phone"}
+                                name={"email"}
+                                type={"email"}
                                 validation={phoneValidation}
-                                label={"Номер телефона"}
-                                placeholder={"+7 920 631-11-38"}
-                                id={"phone"}
+                                label={"Почта"}
+                                placeholder={"@"}
+                                id={"email"}
                             />
                             {/*Пароль*/}
                             <TextField
@@ -51,7 +68,7 @@ export const SignIn = () => {
                                 placeholder={"******"}
                                 id={"password"}
                             />
-                            <ButtonForm isValid={isValid} label={"Войти"}/>
+                            <ButtonForm isLoading={isLoadingLogin} isValid={isValid} label={"Войти"}/>
                             <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                 Еще нет аккаунта?
                                 <Link to={"/signUp"}

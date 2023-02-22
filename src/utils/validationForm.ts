@@ -3,12 +3,6 @@ const PRICE_FIELD = 1000000
 export const phoneValidation = {
     required: REQUIRED_FIELD,
     validate: (value: string) => {
-        if(value.length > 11){
-            return 'Слишком длинный номер'
-        }
-        if(value.match(/\W/g)){
-            return 'Можно вводить только цифры'
-        }
         return true;
     }
 };
@@ -25,20 +19,11 @@ export const passwordValidation = {
         return true;
     }
 };
-export const nameValidation = {
+export const fullnameValidation = {
     required: REQUIRED_FIELD,
     validate: (value: string) => {
         if (value.length > 15) {
-            return 'Имя должно быть короче 15 символов'
-        }
-        return true;
-    }
-}
-export const surnameValidation = {
-    required: REQUIRED_FIELD,
-    validate: (value: string) => {
-        if (value.length > 15) {
-            return 'Фамилия должна быть короче 15 символов'
+            return 'Имя должно быть короче 20 символов'
         }
         return true;
     }

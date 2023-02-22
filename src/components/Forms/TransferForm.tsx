@@ -28,7 +28,7 @@ export const TransferForm = () => {
                        placeholder={"+7 920 631-11-38"} validation={phoneValidation} error={errors.phone}/>
             <TextField id={"transfer"} control={control} label={"Сумма:"} name={"transfer"} type={"text"}
                        placeholder={"1000.00"} validation={transferValidation} error={errors.transfer}/>
-            <ButtonForm isValid={isValid} label={"Перевести"}/>
+            <ButtonForm isLoading={false} isValid={isValid} label={"Перевести"}/>
         </form>
     )
 }

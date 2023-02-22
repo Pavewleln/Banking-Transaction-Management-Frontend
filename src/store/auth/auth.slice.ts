@@ -13,18 +13,17 @@ interface ICard {
 }
 
 interface IAuthState {
+    token: string | null,
     entities?: {
         _id: string,
-        token?: string,
-        name: string,
-        surname: string,
-        phone: string,
-        password: string,
-        cards?: ICard[]
+        fullname: string,
+        email: string,
+        password: string
     }
 }
 
 const initialState: IAuthState = {
+    token: window.localStorage.getItem('jwt-token'),
     entities: undefined
 }
 
