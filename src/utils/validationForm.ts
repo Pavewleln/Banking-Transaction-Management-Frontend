@@ -1,8 +1,11 @@
 const REQUIRED_FIELD = 'Обязательно для заполнения';
 const PRICE_FIELD = 1000000
-export const phoneValidation = {
+export const emailValidation = {
     required: REQUIRED_FIELD,
     validate: (value: string) => {
+        if(!value.toString().match(/^(\S+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+$/g)){
+            return 'Неверная почта'
+        }
         return true;
     }
 };
@@ -25,6 +28,9 @@ export const fullnameValidation = {
         if (value.length > 15) {
             return 'Имя должно быть короче 20 символов'
         }
+        if (value.length < 3) {
+            return 'Имя должно быть длинее 3 символов'
+        }
         return true;
     }
 }
@@ -36,7 +42,7 @@ export const transferValidation = {
             return `Переводы больше чем ${PRICE_FIELD} не возможны`
         }
         if(value.toString().match(/\W/g)){
-            return 'Можно вводить только цифры'
+            return 'Можно вводить только числовые значения'
         }
         return true;
     }

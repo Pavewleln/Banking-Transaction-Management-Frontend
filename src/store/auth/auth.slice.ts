@@ -1,18 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Currency} from "../../types/currency";
 import {IAuth, Token} from "./auth.types";
-import {RootState} from "../store";
-
-interface ICard {
-    cardDetails: {
-        bank: string,
-        numberCard: number,
-        authorName: string,
-        dateOfCreation: string,
-        balance: number,
-        currency: Currency.RUB | Currency.USD
-    }
-}
+import {RootState} from "../index";
+import {AuthApi} from "./auth.api";
 
 interface IAuthState {
     token: string | null,
@@ -24,26 +13,44 @@ const initialState: IAuthState = {
     entities: null
 }
 
+// export const fetchAuthData = createAsyncThunk<IAuth | undefined>('auth/getMe', async () => {
+//     try {
+//         const response = await useGetMeQuery()
+//         console.log(response)
+//         return response.data
+//     } catch (err) {
+//         console.log(err)
+//     }
+// })
+
 export const AuthSlice = createSlice({
     name: 'auth',
     initialState: initialState,
     reducers: {
-        setToken: (state, action: PayloadAction<{ token: string | null }>) => {
+        setToken: (state, action: PayloadAction<{ token: string }>) => {
             localStorage.setItem(Token.JWT, JSON.stringify(action.payload.token))
             state.token = action.payload.token
-        },
-        setAuth: (state, action: PayloadAction<{ data: IAuth | null }>) => {
-            state.entities = action.payload.data
         },
         logout: (state) => {
             state.token = null
             state.entities = null
             localStorage.removeItem(Token.JWT)
         }
+    },
+    extraReducers: (builder) => {
+        builder.addMatcher(AuthApi.endpoints.getMe.matchFulfilled, (state, {payload}) => {
+            state.entities = payload
+        });
+        // builder.addCase(fetchAuthData.fulfilled, (state, {payload}) => {
+        //     state.entities = payload ?? null
+        // })
     }
 })
-export const selectAuth = (state: RootState) => Boolean(state.rootReducer.auth.token)
 const {reducer: authReducer, actions} = AuthSlice;
-export const {setToken, setAuth, logout} = actions
+
+export const getIsLoggedIn = () => (state: RootState) => state.auth.entities;
+export const getIsToken = () => (state: RootState) => state.auth.token;
+
+export const {setToken, logout} = actions
 
 export default authReducer

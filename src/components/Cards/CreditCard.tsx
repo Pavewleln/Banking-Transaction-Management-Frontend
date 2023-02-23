@@ -1,6 +1,6 @@
 import credit_card from "../../assets/img/credir_card.png"
 import {FC} from "react";
-import {Currency} from "../../types/currency";
+import {Banks} from "../../types/banks";
 
 interface ICreditCard {
     cardDetails?: {
@@ -9,7 +9,7 @@ interface ICreditCard {
         authorName: string,
         dateOfCreation: string,
         balance: number,
-        currency: Currency.RUB | Currency.USD
+        currency: Banks.RUB | Banks.USD
     }
 }
 

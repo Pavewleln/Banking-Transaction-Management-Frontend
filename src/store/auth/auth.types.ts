@@ -1,5 +1,5 @@
 export interface IAuthResponseLoginRegister {
-    token: string | null
+    token: string
 }
 
 export interface IAuth {
@@ -11,4 +11,13 @@ export interface IAuth {
 
 export enum Token {
     JWT = 'jwt-token'
+}
+export interface ISignUpForm {
+    fullname: string,
+    email: string,
+    password: string
+}
+export interface ISignInForm {
+    email: string;
+    password: string;
 }

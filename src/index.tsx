@@ -5,14 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {store} from "./store/store";
+import {index} from "./store";
+import "react-toastify/dist/ReactToastify.css"
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <BrowserRouter>
-        <Provider store={store}>
+        <Provider store={index}>
             <App/>
         </Provider>
     </BrowserRouter>

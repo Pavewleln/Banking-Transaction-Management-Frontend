@@ -21,7 +21,7 @@ interface HeaderInt {
 
 export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
     return authorized ? (
-        <Disclosure as="nav" className="bg-gray-800 sticky top-0 left-0 right-0">
+        <Disclosure as="nav" className="bg-gray-800">
             {({open}) => (
                 <>
                     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

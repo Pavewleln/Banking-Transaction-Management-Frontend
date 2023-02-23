@@ -1,15 +1,17 @@
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {Link, useNavigate} from "react-router-dom";
-import {TextField} from "../components/Forms/TextField";
-import {passwordValidation, phoneValidation} from "../utils/validationForm";
-import {ButtonForm} from "../components/Forms/ButtonForm";
-import {ISignInForm} from "../types/auth";
+import {TextField} from "../Common/Forms/TextField";
+import {passwordValidation, emailValidation} from "../utils/validationForm";
+import {ButtonForm} from "../Common/Forms/ButtonForm";
 import {useLoginMutation} from "../store/auth/auth.api";
 import {useEffect} from "react";
-import {useAppDispatch} from "../hooks/useAppDispatch";
 import {setToken} from "../store/auth/auth.slice";
+import {ISignInForm} from "../store/auth/auth.types";
+import {useAppDispatch} from "../store";
+import {toast} from "react-toastify";
 
 export const SignIn = () => {
+    // настройка
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const [login, {
@@ -19,12 +21,7 @@ export const SignIn = () => {
         isError: isLoginError,
         error: loginError
     }] = useLoginMutation()
-    useEffect(() => {
-        if (isLoginSuccess && token) {
-            dispatch(setToken({token}))
-            navigate('/home')
-        }
-    }, [isLoginSuccess])
+
     const {handleSubmit, control, formState: {isValid}} = useForm<ISignInForm>({
         defaultValues: {
             email: "",
@@ -36,11 +33,25 @@ export const SignIn = () => {
         control
     })
 
+    // Если успешно
+    useEffect(() => {
+        if (isLoginSuccess && token) {
+            dispatch(setToken({token}))
+            navigate('/home')
+            toast.success("Вы успешно авторизованы!")
+        }
+    }, [isLoginSuccess])
+
+    // Если ошибка
+    useEffect(() => {
+        if (isLoginError) {
+            toast.error((loginError as any).data.message)
+        }
+    }, [isLoginError])
+
     const onSubmit: SubmitHandler<ISignInForm> = async (loginData) => {
         try {
-            if (loginData) {
-                await login(loginData)
-            }
+            await login(loginData)
         } catch (err) {
             console.log(err)
         }
@@ -62,7 +73,7 @@ export const SignIn = () => {
                                 control={control}
                                 name={"email"}
                                 type={"email"}
-                                validation={phoneValidation}
+                                validation={emailValidation}
                                 label={"Почта"}
                                 placeholder={"@"}
                                 id={"email"}

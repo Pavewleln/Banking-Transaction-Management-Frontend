@@ -1,6 +1,6 @@
 import {FC, RefObject, useRef} from "react";
-import {WelcomeStepPage} from "../components/WelcomeStepPage";
-import {CustomLink} from "../components/CustomLink";
+import {WelcomeStepPage} from "../Common/WelcomeStepPage";
+import {CustomLink} from "../Common/CustomLink";
 
 export const Welcome: FC = () => {
     const start = useRef<HTMLDivElement>(null)

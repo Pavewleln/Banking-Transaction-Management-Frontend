@@ -1,7 +1,7 @@
 import {CreditCard} from "../Cards/CreditCard";
-import {TransferForm} from "../Forms/TransferForm";
+import {TransferForm} from "../../Common/Forms/TransferForm";
 import {ChangeEvent, useState} from "react";
-import {Currency} from "../../types/currency";
+import {Banks} from "../../types/banks";
 
 export const UserCardInformation = () => {
     const banks: string[] | undefined = ["Bank1", "Bank2", "Bank3"]
@@ -16,7 +16,7 @@ export const UserCardInformation = () => {
         authorName: "Павел Куликов",
         dateOfCreation: "21/02",
         balance: 2000,
-        currency: Currency.RUB
+        currency: Banks.RUB
     }
     return (
         <div className={"bg-gray-100 w-full max-w-full sm:max-w-sm rounded-xl p-2 m-2 pt-5"}>

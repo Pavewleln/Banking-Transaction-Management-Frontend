@@ -1,5 +1,4 @@
 import {FC, ReactNode, RefObject} from "react";
-import {Link} from "react-router-dom";
 
 interface IWelcomeStepPage {
     anchor: RefObject<HTMLDivElement>,

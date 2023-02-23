@@ -1,15 +1,17 @@
 import {Link, useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
-import {TextField} from "../components/Forms/TextField";
-import {fullnameValidation, passwordValidation, phoneValidation} from "../utils/validationForm";
-import {ButtonForm} from "../components/Forms/ButtonForm";
+import {TextField} from "../Common/Forms/TextField";
+import {fullnameValidation, passwordValidation, emailValidation} from "../utils/validationForm";
+import {ButtonForm} from "../Common/Forms/ButtonForm";
 import {FC, useEffect} from "react";
 import {useRegisterMutation} from "../store/auth/auth.api";
-import {ISignUpForm} from "../types/auth";
 import {setToken} from "../store/auth/auth.slice";
-import {useAppDispatch} from "../hooks/useAppDispatch";
+import {ISignUpForm} from "../store/auth/auth.types";
+import {useAppDispatch} from "../store";
+import {toast} from "react-toastify";
 
 export const SignUp: FC = () => {
+    // настройка
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const [register, {
@@ -19,32 +21,42 @@ export const SignUp: FC = () => {
         isError: isRegisterError,
         error: registerError
     }] = useRegisterMutation()
-    useEffect(() => {
-        if (isRegisterSuccess && token) {
-            dispatch(setToken({token}))
-            navigate('/home')
-        }
-    }, [isRegisterSuccess])
+
     const {
         handleSubmit,
         control,
         formState: {isValid}
     } = useForm<ISignUpForm>({
         defaultValues: {
-            fullname: 'Павел Куликов',
-            email: 'kulikovps2004@gmail.com',
-            password: 'Werbi_223'
+            fullname: '',
+            email: '',
+            password: ''
         },
         mode: "onChange"
     });
     const {errors} = useFormState({
         control
     })
+
+    // Если успешно
+    useEffect(() => {
+        if (isRegisterSuccess && token) {
+            dispatch(setToken({token}))
+            navigate('/home')
+            toast.success("Вы успешно авторизованы!")
+        }
+    }, [isRegisterSuccess])
+
+    // Если ошибка
+    useEffect(() => {
+        if (isRegisterError) {
+            toast.error((registerError as any).data.message)
+        }
+    }, [isRegisterError])
+
     const onSubmit: SubmitHandler<ISignUpForm> = async (registerData) => {
         try {
-            if (registerData) {
-                await register(registerData)
-            }
+            await register(registerData)
         } catch (err) {
             console.log(err)
         }
@@ -65,8 +77,8 @@ export const SignUp: FC = () => {
                                 type={"text"}
                                 control={control}
                                 validation={fullnameValidation}
-                                label={"fullname"}
-                                placeholder={"Иван"}
+                                label={"Имя"}
+                                placeholder={"Иван Иванов"}
                                 error={errors.fullname}
                                 id={"fullname"}
                             />
@@ -75,7 +87,7 @@ export const SignUp: FC = () => {
                                 name={"email"}
                                 type={"email"}
                                 control={control}
-                                validation={phoneValidation}
+                                validation={emailValidation}
                                 label={"Почта"}
                                 placeholder={"@"}
                                 error={errors.email}

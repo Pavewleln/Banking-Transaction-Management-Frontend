@@ -6,30 +6,30 @@ import {Header} from "./components/Header";
 import {Welcome} from "./pages/Welcome";
 import {NotFound} from "./pages/NotFound";
 import {Logout} from "./pages/Logout";
-import {useAppSelector} from "./hooks/useAppSelector";
-import {selectAuth, setAuth} from "./store/auth/auth.slice";
-import {useGetMeQuery} from "./store/auth/auth.api";
-import {useEffect} from "react";
-import {useAppDispatch} from "./hooks/useAppDispatch";
+import {getIsLoggedIn, getIsToken} from "./store/auth/auth.slice";
+import {AppLoader} from "./components/AppLoader";
+import {PrivateRoute} from "./components/PrivateRoute";
+import { useAppSelector } from "./store";
+import {ToastContainer} from "react-toastify";
 
 export default function App() {
-    const dispatch = useAppDispatch()
-    const isAuth = useAppSelector(selectAuth);
-    const {data = null} = useGetMeQuery()
-    useEffect(() => {
-        dispatch(setAuth({data}))
-    }, [data])
+    const isToken = useAppSelector(getIsToken());
     return (
         <div>
-            <Header authorized={isAuth}/>
-            <Routes>
-                <Route path={'/home'} element={<Home/>}/>
-                <Route path={'/'} element={<Welcome/>}/>
-                <Route path={'/signUp'} element={<SignUp/>}/>
-                <Route path={'/signIn'} element={<SignIn/>}/>
-                <Route path={'/logout'} element={<Logout/>}/>
-                <Route path="*" element={<NotFound/>}/>
-            </Routes>
+            <AppLoader>
+                <Header authorized={!!isToken}/>
+                <Routes>
+                    <Route element={<PrivateRoute/>}>
+                        <Route path={'/home'} element={<Home/>}/>
+                        <Route path={'/logout'} element={<Logout/>}/>
+                    </Route>
+                    <Route path={'/'} element={<Welcome/>}/>
+                    <Route path={'/signUp'} element={<SignUp/>}/>
+                    <Route path={'/signIn'} element={<SignIn/>}/>
+                    <Route path="*" element={<NotFound/>}/>
+                </Routes>
+            </AppLoader>
+            <ToastContainer/>
         </div>
     )
 }
