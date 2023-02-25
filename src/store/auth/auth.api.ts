@@ -1,11 +1,12 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {RootState} from "../index";
-import {IAuth, IAuthResponseLoginRegister, ISignInForm, ISignUpForm} from "./auth.types";
+import {IAuth, IAuthResponseLoginRegister, ISignInForm, ISignUpForm, IUpdateProfile} from "./auth.types";
+import {BASE_URL} from "../../types/baseUrl";
 
 export const AuthApi = createApi({
     reducerPath: 'auth/api',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:4000/auth/',
+        baseUrl: `${BASE_URL}auth/`,
         prepareHeaders: (headers, {getState}) => {
             const token = (getState() as RootState).auth.token
             if (token) {
@@ -35,8 +36,15 @@ export const AuthApi = createApi({
         }),
         getMe: build.query<IAuth, void>({
             query: () => 'me',
+        }),
+        updateProfile: build.mutation<IAuth, IUpdateProfile>({
+            query: (data) => ({
+                url: 'update',
+                method: 'PATCH',
+                body: data
+            })
         })
     })
 })
 
-export const {useRegisterMutation, useLoginMutation, useGetMeQuery} = AuthApi
+export const {useRegisterMutation, useLoginMutation, useGetMeQuery, useUpdateProfileMutation} = AuthApi

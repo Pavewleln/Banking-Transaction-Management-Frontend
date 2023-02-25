@@ -58,7 +58,7 @@ export const SignUp: FC = () => {
         try {
             await register(registerData)
         } catch (err) {
-            console.log(err)
+            toast.error('Ошибка. Попробуйте позже')
         }
     };
     return (
@@ -82,7 +82,7 @@ export const SignUp: FC = () => {
                                 error={errors.fullname}
                                 id={"fullname"}
                             />
-                            {/*Номер телефона*/}
+                            {/*Почта*/}
                             <TextField
                                 name={"email"}
                                 type={"email"}

@@ -1,8 +1,9 @@
 import {UserCardInformation} from "../components/Home/UserCardInformation";
 import PieChart from "../components/Home/PieChart";
 import {TranslationHistoryTable} from "../components/Home/TranslationHistoryTable";
+import {ITransactions, IUserDataPie} from "../store/cards/cards.types";
 
-export const UserData = [
+export const UserData: IUserDataPie[] = [
     // сколько перечислил
     // сколько получил
     // сколько на счету
@@ -31,83 +32,13 @@ export const UserData = [
 ];
 
 export const Home = () => {
-    const transactions: any = [
+    const transactions: ITransactions[] = [
         {
             _id: "sabkvjbdv",
             recipient: "Иван Куликов",
             date: "20.04.05",
-            phone: "89206311138",
+            card: "7845678856785678",
             sum: -2020
-        },
-        {
-            _id: "2",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
-        },
-        {
-            _id: "3",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: -2020
-        },
-        {
-            _id: "4",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
-        },
-        {
-            _id: "5",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: -2020
-        },
-        {
-            _id: "6",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
-        },
-        {
-            _id: "7",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
-        },
-        {
-            _id: "345",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
-        },
-        {
-            _id: "sdv",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
-        },
-        {
-            _id: "23",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
-        },
-        {
-            _id: "8",
-            recipient: "Иван Куликов",
-            date: "20.04.05",
-            phone: "89206311138",
-            sum: 2020
         }
     ]
     return (
@@ -116,7 +47,9 @@ export const Home = () => {
                 <div className={"bg-gray-100 rounded-xl m-2 p-2 max-w-full w-full"}>
                     {transactions.length >= 1
                         ? <div className={"w-full max-h-full flex justify-around items-center flex-col xl:flex-row"}>
+                            {/*График*/}
                             <PieChart/>
+                            {/*История карты*/}
                             <TranslationHistoryTable transactions={transactions}/>
                         </div>
                         : <p className={"text-center"}>
@@ -124,6 +57,7 @@ export const Home = () => {
                         </p>
                     }
                 </div>
+                {/*Карта*/}
                 <UserCardInformation/>
             </div>
         </div>

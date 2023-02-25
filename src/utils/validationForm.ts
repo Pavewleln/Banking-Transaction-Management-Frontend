@@ -3,7 +3,10 @@ const PRICE_FIELD = 1000000
 export const emailValidation = {
     required: REQUIRED_FIELD,
     validate: (value: string) => {
-        if(!value.toString().match(/^(\S+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+$/g)){
+        if(value.match(/[а-яА-я]/g)){
+            return 'Русские буквы не поддерживаются'
+        }
+        if(!value.match(/^(\S+)@([a-z0-9-]+)(\.)([a-z]{2,4})(\.?)([a-z]{0,4})+$/g)){
             return 'Неверная почта'
         }
         return true;
@@ -43,6 +46,15 @@ export const transferValidation = {
         }
         if(value.toString().match(/\W/g)){
             return 'Можно вводить только числовые значения'
+        }
+        return true;
+    }
+}
+export const cardValidation = {
+    required: REQUIRED_FIELD,
+    validate: (value: string) => {
+        if (value.length !== 16) {
+            return `Неверный формат карты`
         }
         return true;
     }

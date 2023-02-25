@@ -1,18 +1,18 @@
 import {TextField} from "./TextField";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {ButtonForm} from "./ButtonForm";
-import {emailValidation, transferValidation} from "../../utils/validationForm";
+import {cardValidation, transferValidation} from "../../utils/validationForm";
 
 interface ITransferForm {
-    email: string,
-    transfer: number | undefined
+    card: string,
+    transfer: string
 }
 
 export const TransferForm = () => {
     const {handleSubmit, control, formState: {isValid}} = useForm<ITransferForm>({
         defaultValues: {
-            email: "",
-            transfer: 0
+            card: "",
+            transfer: ""
         },
         mode: "onChange"
     });
@@ -24,10 +24,26 @@ export const TransferForm = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            <TextField id={"email"} control={control} label={"Почта получателя"} name={"email"} type={"text"}
-                       placeholder={"@"} validation={emailValidation} error={errors.email}/>
-            <TextField id={"transfer"} control={control} label={"Сумма:"} name={"transfer"} type={"text"}
-                       placeholder={"1000.00"} validation={transferValidation} error={errors.transfer}/>
+            <TextField
+                id={"card"}
+                control={control}
+                label={"Карта получателя"}
+                name={"card"}
+                type={"number"}
+                placeholder={"**** **** **** ****"}
+                validation={cardValidation}
+                error={errors.card}
+            />
+            <TextField
+                id={"transfer"}
+                control={control}
+                label={"Сумма"}
+                name={"transfer"}
+                type={"number"}
+                placeholder={"100"}
+                validation={transferValidation}
+                error={errors.transfer}
+            />
             <ButtonForm isLoading={false} isValid={isValid} label={"Перевести"}/>
         </form>
     )

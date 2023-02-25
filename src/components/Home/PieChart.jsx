@@ -24,6 +24,6 @@ function PieChart() {
             },
         ],
     });
-    return <Pie className={"max-w-sm"} data={userData}/>
+    return <Pie className={"min-w-sm"} data={userData}/>
 }
 export default PieChart

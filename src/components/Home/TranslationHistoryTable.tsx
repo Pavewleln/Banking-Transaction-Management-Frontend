@@ -1,14 +1,6 @@
 import {FC} from "react";
-
-interface ITranslationHistoryTable {
-    transactions: Array<{
-        _id: string,
-        recipient: string,
-        date: string,
-        phone: string,
-        sum: number
-    }>
-}
+import {UpdateNumberCard} from "../../utils/updateNumberCard";
+import {ITranslationHistoryTable} from "../../store/cards/cards.types";
 
 export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transactions}) => {
     function classNames(...classes: string[]) {
@@ -18,7 +10,7 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
         <div className="overflow-y-auto w-full max-w-xl shadow-md rounded-lg max-h-80 mt-5">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
-                <tr>
+                <tr className={"text-center"}>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                         Пользователь
                     </th>
@@ -26,7 +18,7 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
                         Дата
                     </th>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                        Номер
+                        Карта
                     </th>
                     <th scope="col" className="px-6 py-3">
                         Сумма
@@ -44,7 +36,7 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
                             {transact.date}
                         </td>
                         <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-                            {transact.phone}
+                            {UpdateNumberCard(transact.card)}
                         </td>
                         <td className={classNames(transact.sum < 0 ? "text-red-600" : "text-green-600", "px-6 py-4")}>
                             {transact.sum}

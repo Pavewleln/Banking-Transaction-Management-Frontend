@@ -41,14 +41,14 @@ export const AuthSlice = createSlice({
         builder.addMatcher(AuthApi.endpoints.getMe.matchFulfilled, (state, {payload}) => {
             state.entities = payload
         });
-        // builder.addCase(fetchAuthData.fulfilled, (state, {payload}) => {
-        //     state.entities = payload ?? null
-        // })
+        builder.addMatcher(AuthApi.endpoints.updateProfile.matchFulfilled, (state, {payload}) => {
+            state.entities = payload
+        });
     }
 })
 const {reducer: authReducer, actions} = AuthSlice;
 
-export const getIsLoggedIn = () => (state: RootState) => state.auth.entities;
+export const selectAuth = () => (state: RootState) => state.auth.entities;
 export const getIsToken = () => (state: RootState) => state.auth.token;
 
 export const {setToken, logout} = actions
