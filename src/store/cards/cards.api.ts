@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {BASE_URL} from "../../types/baseUrl";
 import {RootState} from "../index";
-import {ICreateCard, ICreditCard, ICreditCardOut} from "./cards.types";
+import {ICreateCard, ICreditCard, ICreditCardOut, ITransferOnCard} from "./cards.types";
 
 export const CardsApi = createApi({
     reducerPath: 'cards/api',
@@ -44,7 +44,15 @@ export const CardsApi = createApi({
                 body: data
             }),
             invalidatesTags: [{type: 'Cards', id: 'LIST'}]
+        }),
+        transferOnCard: build.mutation<boolean, ITransferOnCard>({
+            query: (data) => ({
+                url: 'transfer',
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: [{type: 'Cards', id: 'LIST'}]
         })
     })
 })
-export const {useGetAllMyCardsQuery, useGetOneCardQuery, useCreateCardMutation} = CardsApi
+export const {useGetAllMyCardsQuery, useGetOneCardQuery, useCreateCardMutation, useTransferOnCardMutation} = CardsApi

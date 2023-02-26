@@ -9,8 +9,8 @@ import {UpdateNumberCard} from "../../utils/updateNumberCard";
 import {useWallet} from "../../hooks/useWallet";
 
 export const UserCardInformation = () => {
-    const {setCardNumber} = useWallet()
     const navigate = useNavigate()
+    const {setCardNumber} = useWallet()
     const {data: cards, isSuccess: isGetAllMyCardsNumberSuccess} = useGetAllMyCardsQuery()
     let numbers: string[] = []
     const [numberCardOne, setNumberCardOne] = useState(numbers[0]);
@@ -46,7 +46,9 @@ export const UserCardInformation = () => {
             </svg>
             {cardDetails
                 ? <>
-                    <CreditCard cardDetails={cardDetails}/>
+                    <div className={"cursor-pointer"} onClick={() => navigate(`/cards/info/${cardDetails.numberCard}`)}>
+                        <CreditCard cardDetails={cardDetails}/>
+                    </div>
                     <div className={"w-64 m-auto"}>
                         {numbers
                         && numbers.length === 1
@@ -66,7 +68,7 @@ export const UserCardInformation = () => {
                                 className="cursor-pointer w-full p-2 font-medium text-left text-gray-900 rounded-xl dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:underline">
                                 Перевести
                             </summary>
-                            <TransferForm/>
+                            <TransferForm sender={numberCardOne}/>
                         </details>
                     </div>
                 </>

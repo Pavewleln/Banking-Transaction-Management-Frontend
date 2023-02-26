@@ -13,6 +13,7 @@ import {useAppSelector} from "./store";
 import {ToastContainer} from "react-toastify";
 import {Profile} from "./pages/Profile";
 import {CreateNewCard} from "./pages/CreateNewCard";
+import {CreditCardInfo} from "./pages/CreditCardInfo";
 export default function App() {
     const isToken = useAppSelector(getIsToken());
     return (
@@ -25,6 +26,7 @@ export default function App() {
                         <Route path={'/logout'} element={<Logout/>}/>
                         <Route path={'/profile'} element={<Profile/>}/>
                         <Route path={'/cards/create'} element={<CreateNewCard/>}/>
+                        <Route path={'/cards/info/:number'} element={<CreditCardInfo/>}/>
                     </Route>
                     <Route path={'/'} element={<Welcome/>}/>
                     <Route path={'/signUp'} element={<SignUp/>}/>

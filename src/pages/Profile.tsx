@@ -47,7 +47,8 @@ export const Profile = () => {
                         </>
                         : cards && cards.length > 0
                             ? cards.map((card) => (
-                                <div className={"m-5"} key={card._id}>
+                                <div className={"m-5 cursor-pointer"} key={card._id}
+                                     onClick={() => navigate(`/cards/info/${card.numberCard}`)}>
                                     <CreditCard cardDetails={card}/>
                                 </div>
                             ))

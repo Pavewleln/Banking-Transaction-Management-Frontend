@@ -54,8 +54,23 @@ export const CreateNewCard = () => {
                     <option value={Banks.RUB}>RUB</option>
                     <option value={Banks.USD}>USD</option>
                 </select>
-                <ButtonForm isLoading={isCreateCardLoading} submit={handleSubmit} label={"Открыть карту"}/>
-                <p className={"text-red-800 mt-2 m-auto text-center"}>*В будущем изменить карту будет невозможно</p>
+                <div className={"flex"}>
+                    <button onClick={() => navigate(-1)} type="button"
+                            className="mr-5 text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                             stroke="currentColor" className="w-4 h-4 mr-2">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                  d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/>
+                        </svg>
+                        Назад
+                    </button>
+                    <ButtonForm isLoading={isCreateCardLoading} submit={handleSubmit} label={"Открыть карту"}/>
+                </div>
+                <div
+                    className="mt-5 p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
+                    role="alert">
+                    <span className="font-medium">*В будущем изменить карту будет невозможно</span>
+                </div>
             </div>
         </div>
     )

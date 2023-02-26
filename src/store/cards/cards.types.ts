@@ -58,3 +58,8 @@ export interface ICreateCard {
     currency: Banks.RUB | Banks.USD,
     typeCard: TypeCard.debit | TypeCard.credit
 }
+export interface ITransferOnCard {
+    sum: number,
+    recipient: string,
+    sender: string
+}

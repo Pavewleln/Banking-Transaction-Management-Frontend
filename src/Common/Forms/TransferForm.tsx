@@ -2,17 +2,28 @@ import {TextField} from "./TextField";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {ButtonForm} from "./ButtonForm";
 import {cardValidation, transferValidation} from "../../utils/validationForm";
+import {useTransferOnCardMutation} from "../../store/cards/cards.api";
+import {useEffect} from "react";
+import {toast} from "react-toastify";
 
 interface ITransferForm {
-    card: string,
-    transfer: string
+    sum: number,
+    recipient: string,
+    sender: string
 }
 
-export const TransferForm = () => {
+export const TransferForm = ({sender}: {sender: string}) => {
+    const [transfer, {
+        isLoading: isTransferOnCardLoading,
+        isSuccess: isTransferOnCardSuccess,
+        isError: isTransferOnCardError,
+        error: transferOnCardError
+    }] = useTransferOnCardMutation()
     const {handleSubmit, control, formState: {isValid}} = useForm<ITransferForm>({
         defaultValues: {
-            card: "",
-            transfer: ""
+            sum: 0,
+            recipient: "",
+            sender: sender
         },
         mode: "onChange"
     });
@@ -20,31 +31,52 @@ export const TransferForm = () => {
         control
     })
 
-    const onSubmit: SubmitHandler<ITransferForm> = data => console.log(data);
+    // Если успешно
+    useEffect(() => {
+        if (isTransferOnCardSuccess) {
+            toast.success("Перевод выполнен!")
+        }
+    }, [isTransferOnCardSuccess])
+
+    // Если ошибка
+    useEffect(() => {
+        if (isTransferOnCardError) {
+            toast.error((transferOnCardError as any).data.message)
+        }
+    }, [isTransferOnCardError])
+
+    const onSubmit: SubmitHandler<ITransferForm> = async (data) => {
+        try {
+            await transfer(data)
+        } catch (err) {
+            console.log(err)
+        }
+        console.log(data);
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <TextField
-                id={"card"}
+                id={"recipient"}
                 control={control}
                 label={"Карта получателя"}
-                name={"card"}
+                name={"recipient"}
                 type={"number"}
                 placeholder={"**** **** **** ****"}
                 validation={cardValidation}
-                error={errors.card}
+                error={errors.recipient}
             />
             <TextField
-                id={"transfer"}
+                id={"sum"}
                 control={control}
                 label={"Сумма"}
-                name={"transfer"}
+                name={"sum"}
                 type={"number"}
                 placeholder={"100"}
                 validation={transferValidation}
-                error={errors.transfer}
+                error={errors.sum}
             />
-            <ButtonForm isLoading={false} isValid={isValid} label={"Перевести"}/>
+            <ButtonForm isLoading={isTransferOnCardLoading} isValid={isValid} label={"Перевести"}/>
         </form>
     )
 }

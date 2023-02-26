@@ -14,9 +14,6 @@ export const HistoryCard = ({cardNumber}: { cardNumber: string }) => {
         skip: cardNumber === undefined
     })
     const UserData = PieChartSum({transactions})
-
-    const lod = true
-
     return isGetHistoryOneCardLoading ? <HistoryCardSkeleton/> : (
         <div className={"bg-gray-100 rounded-xl m-2 p-2 max-w-full w-full"}>
             {transactions && transactions.length >= 1
