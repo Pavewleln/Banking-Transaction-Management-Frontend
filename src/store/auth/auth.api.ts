@@ -1,4 +1,4 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import {createApi, fetchBaseQuery, skipToken} from "@reduxjs/toolkit/query/react";
 import {RootState} from "../index";
 import {IAuth, IAuthResponseLoginRegister, ISignInForm, ISignUpForm, IUpdateProfile} from "./auth.types";
 import {BASE_URL} from "../../types/baseUrl";
@@ -34,7 +34,7 @@ export const AuthApi = createApi({
             }),
             transformResponse: (response: IAuthResponseLoginRegister) => response.token
         }),
-        getMe: build.query<IAuth, void>({
+        getMe: build.query<IAuth, any>({
             query: () => 'me',
         }),
         updateProfile: build.mutation<IAuth, IUpdateProfile>({

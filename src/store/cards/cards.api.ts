@@ -1,10 +1,11 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {BASE_URL} from "../../types/baseUrl";
 import {RootState} from "../index";
-import {ICreditCard, ICreditCardOut} from "./cards.types";
+import {ICreateCard, ICreditCard, ICreditCardOut} from "./cards.types";
 
 export const CardsApi = createApi({
     reducerPath: 'cards/api',
+    tagTypes: ['Cards'],
     baseQuery: fetchBaseQuery({
         baseUrl: `${BASE_URL}cards/`,
         prepareHeaders: (headers, {getState}) => {
@@ -19,16 +20,31 @@ export const CardsApi = createApi({
     refetchOnFocus: true,
     endpoints: build => ({
         getAllMyCards: build.query<ICreditCardOut[], void>({
-            query: () => 'all'
+            query: () => 'all',
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({ _id }) => ({ type: 'Cards' as const, _id })),
+                        { type: 'Cards', id: 'LIST' },
+                    ]
+                    : [{ type: 'Cards', id: 'LIST' }]
         }),
-        getOneCard: build.query<ICreditCardOut, string>({
+        getOneCard: build.query<ICreditCardOut, any>({
             query: (numberCardOne) => ({
                 url: `${numberCardOne}`
             })
         }),
         getAllMyCardsNumber: build.query<string[] | undefined, void>({
             query: () => 'all/numbers'
+        }),
+        createCard: build.mutation<ICreateCard, any>({
+            query: (data) => ({
+                url: 'create',
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: [{type: 'Cards', id: 'LIST'}]
         })
     })
 })
-export const {useGetAllMyCardsQuery, useGetOneCardQuery, useGetAllMyCardsNumberQuery} = CardsApi
+export const {useGetAllMyCardsQuery, useGetOneCardQuery, useCreateCardMutation} = CardsApi

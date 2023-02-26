@@ -1,5 +1,10 @@
 import {Banks} from "../../types/banks";
 
+export enum TypeCard {
+    credit = "Кредитная",
+    debit = "Дебетовая"
+}
+
 export interface ICard {
     bank: string,
     numberCard: string,
@@ -15,13 +20,6 @@ export interface IUserDataPie {
     sum: number
 }
 
-export interface ITransactions {
-    _id: string,
-    recipient: string,
-    date: string,
-    card: string,
-    sum: number
-}
 export interface ICreditCard {
     cardDetails: {
         code: number
@@ -39,6 +37,7 @@ export interface ICreditCard {
         currency: Banks.RUB | Banks.USD
     }
 }
+
 export interface ICreditCardOut {
     code: number
     createdAt: string
@@ -55,12 +54,7 @@ export interface ICreditCardOut {
     currency: Banks.RUB | Banks.USD
 }
 
-export interface ITranslationHistoryTable {
-    transactions: Array<{
-        _id: string,
-        recipient: string,
-        date: string,
-        card: string,
-        sum: number
-    }>
+export interface ICreateCard {
+    currency: Banks.RUB | Banks.USD,
+    typeCard: TypeCard.debit | TypeCard.credit
 }

@@ -3,24 +3,35 @@ import {ChangeEvent, useEffect, useState} from "react";
 import {TransferForm} from "../../Common/Forms/TransferForm";
 import {ButtonForm} from "../../Common/Forms/ButtonForm";
 import {useNavigate} from "react-router-dom";
-import {useGetAllMyCardsNumberQuery, useGetOneCardQuery} from "../../store/cards/cards.api";
+import {useGetAllMyCardsQuery, useGetOneCardQuery} from "../../store/cards/cards.api";
 import {CreditCardSkeleton} from "../Skeletons/CreditCardSkeleton";
 import {UpdateNumberCard} from "../../utils/updateNumberCard";
+import {useWallet} from "../../hooks/useWallet";
 
 export const UserCardInformation = () => {
-    const {data: numbers, isSuccess: isGetAllMyCardsNumberSuccess} = useGetAllMyCardsNumberQuery()
-    const cardsNumberAll: string[] | undefined = numbers || []
-    useEffect(() => {
-        if (numbers) {
-            setNumberCardOne(numbers[0])
-        }
-    }, [isGetAllMyCardsNumberSuccess])
-    const [numberCardOne, setNumberCardOne] = useState(cardsNumberAll[0]);
-    const {data: cardDetails, isLoading: getOneCardLoading} = useGetOneCardQuery(numberCardOne)
+    const {setCardNumber} = useWallet()
     const navigate = useNavigate()
+    const {data: cards, isSuccess: isGetAllMyCardsNumberSuccess} = useGetAllMyCardsQuery()
+    let numbers: string[] = []
+    const [numberCardOne, setNumberCardOne] = useState(numbers[0]);
+    const {
+        data: cardDetails,
+        isLoading: getOneCardLoading,
+    } = useGetOneCardQuery(numberCardOne, {
+        skip: !cards || !numberCardOne
+    })
+    useEffect(() => {
+        setNumberCardOne(numbers[0])
+        setCardNumber(numbers[0])
+    }, [isGetAllMyCardsNumberSuccess])
+
+    if (cards) {
+        numbers = cards.map((card) => card?.numberCard)
+    }
 
     const changeCardSelect = (e: ChangeEvent<HTMLSelectElement>) => {
         setNumberCardOne(e.target.value.replace(/ /g, ''))
+        setCardNumber(e.target.value.replace(/ /g, ''))
     }
     return getOneCardLoading ? <CreditCardSkeleton/> : (
         <div
@@ -37,19 +48,18 @@ export const UserCardInformation = () => {
                 ? <>
                     <CreditCard cardDetails={cardDetails}/>
                     <div className={"w-64 m-auto"}>
-                        {cardsNumberAll
-                            && cardsNumberAll.length === 1
-                                ? cardsNumberAll.map((c) => (<div key={c}>{UpdateNumberCard(c)}</div>))
-                                : <select
-                                    value={numberCardOne}
-                                    onChange={changeCardSelect}
-                                    id="large"
-                                    className="block w-full px-4 py-3 my-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                >
-                                    {cardsNumberAll.map((c) => (
-                                        <option key={c}>{UpdateNumberCard(c)}</option>
-                                    ))}
-                                </select>
+                        {numbers
+                        && numbers.length === 1
+                            ? null
+                            : <select
+                                onChange={changeCardSelect}
+                                id="large"
+                                className="block w-full px-4 py-3 my-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            >
+                                {numbers.map((c) => (
+                                    <option value={c} key={c}>{UpdateNumberCard(c)}</option>
+                                ))}
+                            </select>
                         }
                         <details className="rounded-lg my-2">
                             <summary

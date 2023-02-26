@@ -12,7 +12,7 @@ import {PrivateRoute} from "./components/PrivateRoute";
 import {useAppSelector} from "./store";
 import {ToastContainer} from "react-toastify";
 import {Profile} from "./pages/Profile";
-
+import {CreateNewCard} from "./pages/CreateNewCard";
 export default function App() {
     const isToken = useAppSelector(getIsToken());
     return (
@@ -24,6 +24,7 @@ export default function App() {
                         <Route path={'/home'} element={<Home/>}/>
                         <Route path={'/logout'} element={<Logout/>}/>
                         <Route path={'/profile'} element={<Profile/>}/>
+                        <Route path={'/cards/create'} element={<CreateNewCard/>}/>
                     </Route>
                     <Route path={'/'} element={<Welcome/>}/>
                     <Route path={'/signUp'} element={<SignUp/>}/>

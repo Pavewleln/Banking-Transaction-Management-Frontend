@@ -1,9 +1,8 @@
 import {Pie} from "react-chartjs-2";
-import {UserData} from "../../pages/Home";
-import { Chart as ChartJS } from "chart.js/auto";
+import {Chart as ChartJS} from "chart.js/auto";
 import {useState} from "react";
-function PieChart() {
-    const [userData] = useState({
+function PieChart({UserData}) {
+    const [userData, setUserData] = useState({
         options: {
             maintainAspectRatio: false
         },
@@ -26,4 +25,5 @@ function PieChart() {
     });
     return <Pie className={"min-w-sm"} data={userData}/>
 }
+
 export default PieChart

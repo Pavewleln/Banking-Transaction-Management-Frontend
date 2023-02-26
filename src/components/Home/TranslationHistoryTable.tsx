@@ -1,11 +1,12 @@
 import {FC} from "react";
+import { ITranslationHistoryTable } from "../../store/history/history.types";
 import {UpdateNumberCard} from "../../utils/updateNumberCard";
-import {ITranslationHistoryTable} from "../../store/cards/cards.types";
 
-export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transactions}) => {
+export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transactions, cardNumber}) => {
     function classNames(...classes: string[]) {
         return classes.filter(Boolean).join(' ')
     }
+
     return (
         <div className="overflow-y-auto w-full max-w-xl shadow-md rounded-lg max-h-80 mt-5">
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
