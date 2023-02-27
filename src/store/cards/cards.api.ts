@@ -32,7 +32,8 @@ export const CardsApi = createApi({
         getOneCard: build.query<ICreditCardOut, any>({
             query: (numberCardOne) => ({
                 url: `${numberCardOne}`
-            })
+            }),
+            providesTags: () =>[{ type: 'Cards', id: 'LIST' }]
         }),
         getAllMyCardsNumber: build.query<string[] | undefined, void>({
             query: () => 'all/numbers'
@@ -45,14 +46,21 @@ export const CardsApi = createApi({
             }),
             invalidatesTags: [{type: 'Cards', id: 'LIST'}]
         }),
-        transferOnCard: build.mutation<boolean, ITransferOnCard>({
+        transferOnCard: build.mutation<ICreditCardOut, ITransferOnCard>({
             query: (data) => ({
                 url: 'transfer',
                 method: 'POST',
                 body: data
             }),
             invalidatesTags: [{type: 'Cards', id: 'LIST'}]
+        }),
+        deleteCard: build.mutation<any, string | undefined>({
+            query: (cardId) => ({
+                url: `${cardId}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: [{type: 'Cards', id: 'LIST'}]
         })
     })
 })
-export const {useGetAllMyCardsQuery, useGetOneCardQuery, useCreateCardMutation, useTransferOnCardMutation} = CardsApi
+export const {useGetAllMyCardsQuery, useGetOneCardQuery, useCreateCardMutation, useTransferOnCardMutation, useDeleteCardMutation} = CardsApi

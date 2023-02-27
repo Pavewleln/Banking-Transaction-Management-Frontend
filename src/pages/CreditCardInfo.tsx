@@ -1,8 +1,13 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useGetOneCardQuery} from "../store/cards/cards.api";
 import {CreditCard} from "../components/Cards/CreditCard";
+import {useState} from "react";
+import {TransferPopup} from "../components/Popup/TransferPopup";
+import {DeleteCardPopup} from "../components/Popup/DeleteCardPopup";
 
 export const CreditCardInfo = () => {
+    const [showModalTransfer, setShowModalTransfer] = useState(false);
+    const [showModalDeleteCard, setShowModalDeleteCard] = useState(false);
     const navigate = useNavigate()
     const {number} = useParams()
     const {
@@ -24,6 +29,7 @@ export const CreditCardInfo = () => {
                         Назад
                     </button>
                     <button type="button"
+                            onClick={() => setShowModalDeleteCard(true)}
                             className="w-[170px] flex items-center justify-center text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor" className="w-6 h-6 mr-2">
@@ -39,6 +45,7 @@ export const CreditCardInfo = () => {
                 </div>
                 <div>
                     <button type="button"
+                            onClick={() => setShowModalTransfer(true)}
                             className="w-[170px] flex items-center justify-center text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                              stroke="currentColor" className="w-6 h-6 mr-2">
@@ -59,6 +66,14 @@ export const CreditCardInfo = () => {
                     </button>
                 </div>
             </div>
+            {cardDetails &&
+                <>
+                    <TransferPopup showModal={showModalTransfer} setShowModal={setShowModalTransfer}
+                                   cardDetails={cardDetails}/>
+                    <DeleteCardPopup showModal={showModalDeleteCard} setShowModal={setShowModalDeleteCard}
+                                     cardDetails={cardDetails}/>
+                </>
+            }
         </div>
         : <div></div>
 }

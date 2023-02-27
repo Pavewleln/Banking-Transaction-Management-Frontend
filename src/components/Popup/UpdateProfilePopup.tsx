@@ -1,5 +1,5 @@
 import {FC, useEffect} from "react";
-import {IPopup} from "./types";
+import {IPopup} from "./popup.types";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {IUpdateProfile} from "../../store/auth/auth.types";
 import {TextField} from "../../Common/Forms/TextField";
@@ -45,6 +45,7 @@ export const UpdateProfilePopup: FC<IPopup> = ({showModal, setShowModal}) => {
             toast.error((updateError as any).data.message)
         }
     }, [isUpdateError])
+
     const onSubmit: SubmitHandler<IUpdateProfile> = async (registerData) => {
         try {
             await update(registerData)

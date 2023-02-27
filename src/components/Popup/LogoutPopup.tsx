@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {FC} from "react";
-import {IPopup} from "./types";
+import {IPopup} from "./popup.types";
 
 export const LogoutPopup: FC<IPopup> = ({showModal, setShowModal}) => {
     const navigate = useNavigate()
@@ -35,7 +35,7 @@ export const LogoutPopup: FC<IPopup> = ({showModal, setShowModal}) => {
                                             />
                                         </svg>
                                     </div>
-                                    <div className="mt-2 text-center sm:ml-4 sm:text-left">
+                                    <div className="mt-2 text-center sm:text-left">
                                         <h4 className="text-lg font-medium text-gray-800 text-center">
                                             Вы точно хотите выйти?
                                         </h4>

@@ -12,9 +12,6 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                 <tr className={"text-center"}>
-                    <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                        Пользователь
-                    </th>
                     <th scope="col" className="px-6 py-3">
                         Дата
                     </th>
@@ -29,10 +26,6 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
                 <tbody>
                 {transactions.map(transact => (
                     <tr key={transact._id} className="border-b border-gray-200 dark:border-gray-700">
-                        <th scope="row"
-                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                            {transact.recipient}
-                        </th>
                         <td className="px-6 py-4">
                             {transact.date}
                         </td>

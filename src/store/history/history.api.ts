@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {BASE_URL} from "../../types/baseUrl";
 import {RootState} from "../index";
-import { ITransactions } from "./history.types";
+import {IAddHistoryTransfer, IHistory, ITransactions} from "./history.types";
 
 export const HistoryApi = createApi({
     reducerPath: 'history/api',
@@ -31,7 +31,15 @@ export const HistoryApi = createApi({
                     ]
                     : [{type: 'History', id: 'LIST'}]
         }),
+        addHistoryTransfer: build.mutation<IHistory, IAddHistoryTransfer>({
+            query: (data) => ({
+                url: ``,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: [{type: 'History', id: 'LIST'}]
+        })
     })
 })
 
-export const {useGetHistoryOneCardQuery} = HistoryApi
+export const {useGetHistoryOneCardQuery, useAddHistoryTransferMutation} = HistoryApi

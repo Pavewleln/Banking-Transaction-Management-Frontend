@@ -35,6 +35,7 @@ export const PieChartSum = ({transactions}: { transactions: ITransactions[] | un
             }
 
         ];
+        console.log(UserData)
         return UserData
     }
 }
