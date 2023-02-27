@@ -35,12 +35,12 @@ export const UserCardInformation = () => {
     }
     return getOneCardLoading ? <CreditCardSkeleton/> : (
         <div
-            className={"bg-gray-100 w-full max-w-full sm:max-w-sm rounded-xl p-2 m-2 relative"}>
+            className={"bg-gray-100 w-full max-w-full sm:max-w-sm rounded-xl p-2 m-2 relative dark:bg-gray-700"}>
             {/*Создать карту*/}
             <svg onClick={() => navigate('/cards/create')} xmlns="http://www.w3.org/2000/svg" fill="none"
                  viewBox="0 0 24 24" strokeWidth="1.5"
                  stroke="currentColor"
-                 className="w-6 h-6 absolute top-5 right-5 hover:stroke-blue-500 transition-all cursor-pointer">
+                 className="w-6 h-6 absolute top-5 right-5 hover:stroke-blue-500 transition-all cursor-pointer dark:text-white">
                 <path strokeLinecap="round" strokeLinejoin="round"
                       d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>

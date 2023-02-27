@@ -3,6 +3,7 @@ import {FC, Fragment, useState} from "react";
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {Link, NavLink} from "react-router-dom";
 import {LogoutPopup} from "./Popup/LogoutPopup";
+import { classNames } from '../utils/classNames';
 
 const navigation = [
     {name: 'Главная', href: '/home', current: true},
@@ -11,10 +12,6 @@ const navigation = [
     {name: 'Перевести', href: '/transfer', current: false},
     {name: 'Кредит', href: '/credit', current: false},
 ]
-
-function classNames(...classes: string[]) {
-    return classes.filter(Boolean).join(' ')
-}
 
 interface HeaderInt {
     authorized: boolean
@@ -126,7 +123,7 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                                 <Menu.Item>
                                                     {({active}) => (
                                                         <button onClick={() => setShowModal(true)}
-                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 h-full max-h-full')}
+                                                                className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 h-full max-h-full w-full flex justify-left')}
                                                         >
                                                             Выйти
                                                         </button>

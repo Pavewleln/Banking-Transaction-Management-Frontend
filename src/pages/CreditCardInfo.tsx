@@ -15,8 +15,8 @@ export const CreditCardInfo = () => {
         isLoading: getOneCardLoading,
     } = useGetOneCardQuery(number)
     return !getOneCardLoading && cardDetails
-        ? <div className={"p-5 max-w-2xl m-auto"}>
-            <div className={"flex flex-col md:justify-around items-center md:flex-row"}>
+        ? <div className={"p-5 dark:bg-gray-900 w-full h-screen"}>
+            <div className={"max-w-2xl m-auto flex flex-col md:justify-around items-center md:flex-row"}>
                 <div>
                     <button onClick={() => navigate(-1)}
                             type="button"

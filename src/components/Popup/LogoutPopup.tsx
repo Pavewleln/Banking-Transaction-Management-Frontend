@@ -18,7 +18,7 @@ export const LogoutPopup: FC<IPopup> = ({showModal, setShowModal}) => {
                             onClick={() => setShowModal(false)}
                         ></div>
                         <div className="flex items-center min-h-screen px-4 py-8">
-                            <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
+                            <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg dark:bg-gray-700">
                                 <div className="mt-3">
                                     <div
                                         className="flex items-center justify-center flex-none w-12 h-12 mx-auto bg-red-100 rounded-full">
@@ -36,7 +36,7 @@ export const LogoutPopup: FC<IPopup> = ({showModal, setShowModal}) => {
                                         </svg>
                                     </div>
                                     <div className="mt-2 text-center sm:text-left">
-                                        <h4 className="text-lg font-medium text-gray-800 text-center">
+                                        <h4 className="text-lg font-medium text-gray-800 text-center dark:text-white">
                                             Вы точно хотите выйти?
                                         </h4>
                                         <div className="items-center gap-2 mt-3 sm:flex">
@@ -47,7 +47,7 @@ export const LogoutPopup: FC<IPopup> = ({showModal, setShowModal}) => {
                                                 Выйти
                                             </button>
                                             <button
-                                                className="w-full mt-2 p-2 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2"
+                                                className="w-full mt-2 p-2 flex-1 text-gray-800 rounded-md outline-none border ring-offset-2 ring-indigo-600 focus:ring-2 dark:bg-white dark:text-black"
                                                 onClick={() =>
                                                     setShowModal(false)
                                                 }

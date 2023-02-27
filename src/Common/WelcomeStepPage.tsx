@@ -19,7 +19,7 @@ export const WelcomeStepPage: FC<IWelcomeStepPage> = ({
                 </div>
             </div>
             {transitionTop && <div className="absolute bottom-10 right-10">
-                <button className={"flex items-center hover:text-cyan-600 transition"}
+                <button className={"flex items-center hover:text-cyan-600 transition dark:text-white"}
                         onClick={transitionTop}>
                     К началу
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"

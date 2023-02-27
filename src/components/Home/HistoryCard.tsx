@@ -15,12 +15,12 @@ export const HistoryCard = ({cardNumber}: { cardNumber: string }) => {
     })
     const UserData = PieChartSum({transactions})
     return isGetHistoryOneCardLoading ? <HistoryCardSkeleton/> : (
-        <div className={"bg-gray-100 rounded-xl m-2 p-2 max-w-full w-full"}>
+        <div className={"bg-gray-100 rounded-xl m-2 p-2 max-w-full w-full dark:bg-gray-700"}>
             {transactions && transactions.length >= 1
                 ? <div className={"w-full max-h-full flex justify-around items-center flex-col xl:flex-row"}>
                     {/*График*/}
                     {UserData
-                        ? <Pie className={"min-w-sm"} data={{
+                        ? <Pie className={"min-w-sm dark:text-white"} data={{
                             // @ts-ignore
                             options: {
                                 maintainAspectRatio: false
@@ -38,7 +38,7 @@ export const HistoryCard = ({cardNumber}: { cardNumber: string }) => {
                                         "#2a71d0",
                                     ],
                                     borderColor: "black",
-                                    borderWidth: 2,
+                                    borderWidth: 2
                                 },
                             ]
                         }}/>

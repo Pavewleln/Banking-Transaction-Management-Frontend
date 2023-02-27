@@ -12,7 +12,7 @@ export const TransferPopup: FC<IPopup> = ({showModal, setShowModal, cardDetails}
                         onClick={() => setShowModal(false)}
                     ></div>
                     <div className="flex items-center min-h-screen px-4 py-8">
-                        <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg">
+                        <div className="relative w-full max-w-lg p-4 mx-auto bg-white rounded-md shadow-lg dark:bg-gray-700">
                             <div className="mt-2 text-center sm:text-left">
 
                                 {cardDetails &&

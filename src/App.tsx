@@ -14,10 +14,14 @@ import {ToastContainer} from "react-toastify";
 import {Profile} from "./pages/Profile";
 import {CreateNewCard} from "./pages/CreateNewCard";
 import {CreditCardInfo} from "./pages/CreditCardInfo";
+import {Settings} from "./pages/Settings";
+import {useTheme} from "./hooks/useTheme";
+
 export default function App() {
     const isToken = useAppSelector(getIsToken());
+    const {theme} = useTheme()
     return (
-        <div>
+        <div id={"app"} className={theme}>
             <AppLoader>
                 <Header authorized={!!isToken}/>
                 <Routes>
@@ -31,6 +35,7 @@ export default function App() {
                     <Route path={'/'} element={<Welcome/>}/>
                     <Route path={'/signUp'} element={<SignUp/>}/>
                     <Route path={'/signIn'} element={<SignIn/>}/>
+                    <Route path={'/settings'} element={<Settings/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>
             </AppLoader>
