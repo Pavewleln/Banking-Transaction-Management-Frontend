@@ -1,5 +1,5 @@
 import {Disclosure, Menu, Transition} from '@headlessui/react'
-import {FC, Fragment, useState} from "react";
+import {FC, Fragment, useEffect, useState} from "react";
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {Link, NavLink} from "react-router-dom";
 import {LogoutPopup} from "./Popup/LogoutPopup";
@@ -7,6 +7,8 @@ import {classNames} from '../utils/classNames';
 import {useAppSelector} from "../store";
 import {selectAuth} from "../store/auth/auth.slice";
 import {BASE_URL} from "../types/baseUrl";
+import {useDebounce} from '../hooks/debounce';
+import {useSearchCardByFullNameMutation} from "../store/cards/cards.api";
 
 const navigation = [
     {name: 'Главная', href: '/home', current: true},
@@ -21,8 +23,21 @@ interface HeaderInt {
 }
 
 export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
+    const [search, setSearch] = useState<string>('')
+    const [dropdown, setDropdown] = useState<boolean>(false)
     const auth = useAppSelector(selectAuth())
+    let debounced = useDebounce(search)
+    const [searchCard, {isLoading, data: cards}] = useSearchCardByFullNameMutation()
+    useEffect(() => {
+        if (debounced.length > 2) {
+            searchCard(search)
+        }
+    }, [debounced])
+    useEffect(() => {
+        setDropdown(debounced.length > 3 && cards?.length! > 0)
+    }, [debounced, cards])
     const [showModal, setShowModal] = useState(false);
+
     return authorized ? (
         <>
             <Disclosure as="nav" className="bg-gray-800">
@@ -78,7 +93,8 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                         </div>
                                         <input type="text" id="search-navbar"
                                                className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               placeholder="Поиск по имени"/>
+                                               placeholder="Поиск по имени"
+                                               onChange={e => setSearch(e.target.value)}/>
                                     </div>
                                     {/*Дропдаун профиля*/}
                                     <Menu as="div" className="relative ml-3 z-50">
@@ -160,7 +176,8 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                 </div>
                                 <input type="text" id="search-navbar"
                                        className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       placeholder="Поиск по имени"/>
+                                       placeholder="Поиск по имени"
+                                       onChange={e => setSearch(e.target.value)}/>
                             </div>
                             <div className="space-y-1 px-2 pt-2 pb-3">
                                 {navigation.map((item) => (
@@ -181,6 +198,21 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                 )}
             </Disclosure>
             <LogoutPopup showModal={showModal} setShowModal={setShowModal}/>
+            {dropdown &&
+                <ul className="list-none absolute top-15 mx-auto max-h-[200px] right-0 overflow-y-scroll shadow-md bg-white z-10 max-w-[400px] w-full rounded-b-xl">
+                    {isLoading && <p className="text-center font-bold text-blue-700">Loading...</p>}
+                    {cards?.map((card: any) => (
+                        <li className="py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer flex items-center justify-between"
+                            key={card._id}>
+                            <p>
+                                {card.owner}
+                            </p>
+                            <p>
+                                {card.numberCard}
+                            </p>
+                        </li>
+                    ))}
+                </ul>}
         </>
     ) : null
 }

@@ -1,7 +1,7 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {BASE_URL} from "../../types/baseUrl";
 import {RootState} from "../index";
-import {ICreateCard, ICreditCard, ICreditCardOut, ITransferOnCard} from "./cards.types";
+import {ICreateCard, ICreditCardOut, ITransferOnCard} from "./cards.types";
 
 export const CardsApi = createApi({
     reducerPath: 'cards/api',
@@ -24,16 +24,16 @@ export const CardsApi = createApi({
             providesTags: (result) =>
                 result
                     ? [
-                        ...result.map(({ _id }) => ({ type: 'Cards' as const, _id })),
-                        { type: 'Cards', id: 'LIST' },
+                        ...result.map(({_id}) => ({type: 'Cards' as const, _id})),
+                        {type: 'Cards', id: 'LIST'},
                     ]
-                    : [{ type: 'Cards', id: 'LIST' }]
+                    : [{type: 'Cards', id: 'LIST'}]
         }),
         getOneCard: build.query<ICreditCardOut, any>({
             query: (numberCardOne) => ({
                 url: `${numberCardOne}`
             }),
-            providesTags: () =>[{ type: 'Cards', id: 'LIST' }]
+            providesTags: () => [{type: 'Cards', id: 'LIST'}]
         }),
         getAllMyCardsNumber: build.query<string[] | undefined, void>({
             query: () => 'all/numbers'
@@ -60,7 +60,23 @@ export const CardsApi = createApi({
                 method: 'DELETE'
             }),
             invalidatesTags: [{type: 'Cards', id: 'LIST'}]
+        }),
+        searchCardByFullName: build.mutation<ICreditCardOut[], string>({
+            query: (fullname: string) => ({
+                url: `search`,
+                method: 'POST',
+                params: {
+                    fullname: fullname.toString()
+                }
+            })
         })
     })
 })
-export const {useGetAllMyCardsQuery, useGetOneCardQuery, useCreateCardMutation, useTransferOnCardMutation, useDeleteCardMutation} = CardsApi
+export const {
+    useGetAllMyCardsQuery,
+    useGetOneCardQuery,
+    useCreateCardMutation,
+    useTransferOnCardMutation,
+    useDeleteCardMutation,
+    useSearchCardByFullNameMutation
+} = CardsApi
