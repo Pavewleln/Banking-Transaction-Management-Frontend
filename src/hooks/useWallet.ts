@@ -3,8 +3,7 @@ import {GlobalContent} from "../types/banks";
 
 export const WalletContext = createContext<GlobalContent>({
     cardNumber: "",
-    setCardNumber: () => {
-    },
+    setCardNumber: () => {}
 })
 export const useWallet = () => {
     return useContext(WalletContext);

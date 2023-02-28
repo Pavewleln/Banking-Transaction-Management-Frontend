@@ -19,7 +19,7 @@ export const CreditCard: FC<ICreditCard> = ({cardDetails}) => {
             </div>
             <div className={"flex items-center justify-center"}>
                 <p className="mb-2 text-xl tracking-tight font-medium leading-tight text-gray-900 dark:text-white mt-2">
-                    {cardDetails.balance}
+                    {cardDetails.balance.toFixed(2)}
                     {"   "}
                     {cardDetails.currency}
                 </p>

@@ -10,7 +10,9 @@ export const Logout = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(logout())
-        navigate('/signIn')
+        setTimeout(() => {
+            navigate('/signIn')
+        }, 100)
         toast.success("Вы успешно вышли из системы")
     }, [])
     return (

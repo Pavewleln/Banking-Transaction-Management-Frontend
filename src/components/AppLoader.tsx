@@ -15,7 +15,7 @@ export const AppLoader = ({children}: IAppLoader) => {
     })
     if (isLoading) {
         return (
-            <div className={"flex items-center justify-center h-screen"}>
+            <div className={"flex items-center justify-center h-screen dark:bg-gray-800"}>
                 <Loader/>
             </div>
         )

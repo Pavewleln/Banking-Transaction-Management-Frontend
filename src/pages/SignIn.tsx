@@ -37,7 +37,9 @@ export const SignIn = () => {
     useEffect(() => {
         if (isLoginSuccess && token) {
             dispatch(setToken({token}))
-            navigate('/home')
+            setTimeout(() => {
+                navigate('/home')
+            }, 1000)
             toast.success("Вы успешно авторизованы!")
         }
     }, [isLoginSuccess])

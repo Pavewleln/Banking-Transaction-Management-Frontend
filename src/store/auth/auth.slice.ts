@@ -13,16 +13,6 @@ const initialState: IAuthState = {
     entities: null
 }
 
-// export const fetchAuthData = createAsyncThunk<IAuth | undefined>('auth/getMe', async () => {
-//     try {
-//         const response = await useGetMeQuery()
-//         console.log(response)
-//         return response.data
-//     } catch (err) {
-//         console.log(err)
-//     }
-// })
-
 export const AuthSlice = createSlice({
     name: 'auth',
     initialState: initialState,

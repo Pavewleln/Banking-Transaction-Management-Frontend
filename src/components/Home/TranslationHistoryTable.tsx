@@ -34,6 +34,8 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
                         </td>
                         <td className={classNames(transact.sum < 0 ? "text-red-600" : "text-green-600", "px-6 py-4 bg-gray-50 dark:bg-gray-800")}>
                             {transact.sum}
+                            {" "}
+                            {transact.currency}
                         </td>
                     </tr>
                 ))}

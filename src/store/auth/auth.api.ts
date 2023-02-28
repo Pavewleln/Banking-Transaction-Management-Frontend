@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery, skipToken} from "@reduxjs/toolkit/query/react";
 import {RootState} from "../index";
-import {IAuth, IAuthResponseLoginRegister, ISignInForm, ISignUpForm, IUpdateProfile} from "./auth.types";
+import {IAuth, IAuthResponseLoginRegister, ISignInForm, ISignUpForm, IUpdateProfile, IUploadAvatar} from "./auth.types";
 import {BASE_URL} from "../../types/baseUrl";
 
 export const AuthApi = createApi({
@@ -43,8 +43,15 @@ export const AuthApi = createApi({
                 method: 'PATCH',
                 body: data
             })
+        }),
+        uploadAvatar: build.mutation<any, any>({
+            query: (data) => ({
+                url: "upload",
+                method: 'POST',
+                body: data
+            })
         })
     })
 })
 
-export const {useRegisterMutation, useLoginMutation, useGetMeQuery, useUpdateProfileMutation} = AuthApi
+export const {useRegisterMutation, useLoginMutation, useGetMeQuery, useUpdateProfileMutation, useUploadAvatarMutation} = AuthApi

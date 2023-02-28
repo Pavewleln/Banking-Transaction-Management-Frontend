@@ -4,6 +4,7 @@ import {CreditCard} from "../components/Cards/CreditCard";
 import {useState} from "react";
 import {TransferPopup} from "../components/Popup/TransferPopup";
 import {DeleteCardPopup} from "../components/Popup/DeleteCardPopup";
+import {CreditCardInfoSkeleton} from "../components/Skeletons/CreditCardInfoSkeleton";
 
 export const CreditCardInfo = () => {
     const [showModalTransfer, setShowModalTransfer] = useState(false);
@@ -75,5 +76,5 @@ export const CreditCardInfo = () => {
                 </>
             }
         </div>
-        : <div></div>
+        : <CreditCardInfoSkeleton/>
 }

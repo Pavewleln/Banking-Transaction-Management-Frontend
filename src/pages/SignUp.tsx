@@ -42,7 +42,9 @@ export const SignUp: FC = () => {
     useEffect(() => {
         if (isRegisterSuccess && token) {
             dispatch(setToken({token}))
-            navigate('/home')
+            setTimeout(() => {
+                navigate('/home')
+            }, 1000)
             toast.success("Вы успешно авторизованы!")
         }
     }, [isRegisterSuccess])

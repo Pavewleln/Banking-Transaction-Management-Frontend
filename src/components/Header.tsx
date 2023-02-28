@@ -3,14 +3,17 @@ import {FC, Fragment, useState} from "react";
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {Link, NavLink} from "react-router-dom";
 import {LogoutPopup} from "./Popup/LogoutPopup";
-import { classNames } from '../utils/classNames';
+import {classNames} from '../utils/classNames';
+import {useAppSelector} from "../store";
+import {selectAuth} from "../store/auth/auth.slice";
+import {BASE_URL} from "../types/baseUrl";
 
 const navigation = [
     {name: 'Главная', href: '/home', current: true},
-    {name: 'Транзакции', href: '/transactions', current: false},
+    // {name: 'Транзакции', href: '/transactions', current: false},
     {name: 'Счета', href: '/accounts', current: false},
-    {name: 'Перевести', href: '/transfer', current: false},
-    {name: 'Кредит', href: '/credit', current: false},
+    // {name: 'Кредит', href: '/credit', current: false},
+    {name: 'Поддержка', href: '/support', current: false},
 ]
 
 interface HeaderInt {
@@ -18,6 +21,7 @@ interface HeaderInt {
 }
 
 export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
+    const auth = useAppSelector(selectAuth())
     const [showModal, setShowModal] = useState(false);
     return authorized ? (
         <>
@@ -74,7 +78,7 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                         </div>
                                         <input type="text" id="search-navbar"
                                                className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                               placeholder="Поиск по картам"/>
+                                               placeholder="Поиск по имени"/>
                                     </div>
                                     {/*Дропдаун профиля*/}
                                     <Menu as="div" className="relative ml-3 z-50">
@@ -82,11 +86,18 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                             <Menu.Button
                                                 className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                 <span className="sr-only">Open user menu</span>
-                                                <img
-                                                    className="h-8 w-8 rounded-full"
-                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                    alt=""
-                                                />
+                                                {auth?.avatarUrl
+                                                    ? <img
+                                                        className="h-8 w-8 rounded-full"
+                                                        src={`${BASE_URL}${auth?.avatarUrl}`}
+                                                        alt=""
+                                                    />
+                                                    : <label
+                                                        className="cursor-pointer relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 hover:bg-gray-300 transition-all">
+                                                        <span
+                                                            className="font-medium text-gray-600 dark:text-gray-300">{auth?.fullname.split(' ')[0]?.slice(0, 1)}{auth?.fullname.split(' ')[1]?.slice(0, 1)}</span>
+                                                    </label>
+                                                }
                                             </Menu.Button>
                                         </div>
                                         <Transition
@@ -149,7 +160,7 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                 </div>
                                 <input type="text" id="search-navbar"
                                        className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       placeholder="Поиск по картам"/>
+                                       placeholder="Поиск по имени"/>
                             </div>
                             <div className="space-y-1 px-2 pt-2 pb-3">
                                 {navigation.map((item) => (

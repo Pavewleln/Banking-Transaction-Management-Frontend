@@ -11,7 +11,7 @@ export interface IAuth {
     fullname: string,
     email: string,
     password: string,
-    avatarUrl: string
+    avatarUrl: string | undefined
 }
 
 export interface ISignUpForm {
@@ -26,5 +26,9 @@ export interface ISignInForm {
 }
 
 export interface IUpdateProfile {
-    fullname: string
+    fullname: string,
+    avatarUrl: string | undefined
+}
+export interface IUploadAvatar {
+    avatarUrl: string | undefined
 }
