@@ -9,18 +9,22 @@ export enum TypeCard {
 
 export interface ITranslationHistoryTable {
     transactions: ITransactions[],
-    cardNumber: string
+    cardNumber?: string
 }
 
 export interface ITransactions {
-    _id: string,
     recipient: string,
     date: string,
     sum: number,
     card: string,
-    currency: string,
-    numberUserCard: string,
+    currency: Banks.RUB | Banks.USD,
+    numberCardUser: string,
+    user: string,
     moneyType: TypeCard.account | TypeCard.receiving | TypeCard.credit | TypeCard.transfer
+    _id: string,
+    createdAt: string,
+    updatedAt: string,
+    __v: number
 }
 export interface IAddHistoryTransfer {
     sum: number,
@@ -39,8 +43,8 @@ export interface IHistory {
     numberCardUser: string,
     user: string,
     moneyType: TypeCard.account | TypeCard.receiving | TypeCard.credit | TypeCard.transfer
-    "_id": string,
-    "createdAt": string,
-    "updatedAt": string,
-    "__v": number
+    _id: string,
+    createdAt: string,
+    updatedAt: string,
+    __v: number
 }

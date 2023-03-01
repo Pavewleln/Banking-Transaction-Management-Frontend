@@ -19,6 +19,16 @@ export const HistoryApi = createApi({
     }),
     refetchOnFocus: true,
     endpoints: build => ({
+        getAllMyHistories: build.query<ITransactions[], void>({
+            query: () => 'all',
+            providesTags: (result) =>
+                result
+                    ? [
+                        ...result.map(({_id}) => ({type: 'History' as const, _id})),
+                        {type: 'History', id: 'LIST'},
+                    ]
+                    : [{type: 'History', id: 'LIST'}]
+        }),
         getHistoryOneCard: build.query<ITransactions[], any>({
             query: (cardNumber) => ({
                 url: `card/${cardNumber}`
@@ -42,4 +52,4 @@ export const HistoryApi = createApi({
     })
 })
 
-export const {useGetHistoryOneCardQuery, useAddHistoryTransferMutation} = HistoryApi
+export const {useGetHistoryOneCardQuery, useAddHistoryTransferMutation, useGetAllMyHistoriesQuery} = HistoryApi

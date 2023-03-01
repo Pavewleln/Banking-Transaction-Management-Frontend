@@ -6,7 +6,7 @@ import {HistoryCard} from "../components/Home/HistoryCard";
 export const Home = () => {
     const [cardNumber, setCardNumber] = useState<string>("")
     return (
-        <div className={"p-4 dark:bg-gray-900 h-screen"}>
+        <div className={"pr-4 dark:bg-gray-900 h-screen md:p-4 "}>
             <div className={"flex justify-between flex-col-reverse sm:flex-row"}>
                 {/*История карты*/}
                 <HistoryCard cardNumber={cardNumber}/>

@@ -16,6 +16,7 @@ import {CreateNewCard} from "./pages/CreateNewCard";
 import {CreditCardInfo} from "./pages/CreditCardInfo";
 import {Settings} from "./pages/Settings";
 import {useTheme} from "./hooks/useTheme";
+import {Transactions} from "./pages/Transactions";
 
 export default function App() {
     const isToken = useAppSelector(getIsToken());
@@ -27,6 +28,7 @@ export default function App() {
                 <Routes>
                     <Route element={<PrivateRoute/>}>
                         <Route path={'/home'} element={<Home/>}/>
+                        <Route path={'/transactions'} element={<Transactions/>}/>
                         <Route path={'/logout'} element={<Logout/>}/>
                         <Route path={'/profile'} element={<Profile/>}/>
                         <Route path={'/cards/create'} element={<CreateNewCard/>}/>

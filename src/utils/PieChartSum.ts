@@ -1,7 +1,7 @@
 import {ITransactions} from "../store/history/history.types";
 import {IUserDataPie} from "../store/cards/cards.types";
 
-export const PieChartSum = ({transactions}: { transactions: ITransactions[] | undefined }) => {
+export const PieChartSum = ({transactions = []}: { transactions: ITransactions[] | undefined }) => {
     if (transactions && transactions.length > 0) {
         const reduceSum = (type: string) => {
             return transactions.map((transact) => {
@@ -35,7 +35,6 @@ export const PieChartSum = ({transactions}: { transactions: ITransactions[] | un
             }
 
         ];
-        console.log(UserData)
         return UserData
     }
 }

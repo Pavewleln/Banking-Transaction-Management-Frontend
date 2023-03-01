@@ -20,11 +20,7 @@ export const HistoryCard = ({cardNumber}: { cardNumber: string }) => {
                 ? <div className={"w-full max-h-full flex justify-around items-center flex-col xl:flex-row"}>
                     {/*График*/}
                     {UserData
-                        ? <Pie className={"min-w-sm dark:text-white"} data={{
-                            // @ts-ignore
-                            options: {
-                                maintainAspectRatio: false
-                            },
+                        ? <Pie className={"max-w-sm dark:text-white h-auto"} data={{
                             labels: UserData.map((data) => data.action),
                             datasets: [
                                 {

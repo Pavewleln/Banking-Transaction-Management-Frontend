@@ -13,10 +13,13 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
                 <thead className="text-xs text-gray-700 uppercase dark:text-gray-400 relative">
                 <tr className={"text-center sticky top-0 left-0 right-0"}>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                        Откуда
+                    </th>
+                    <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                         Дата
                     </th>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                        Карта
+                        Куда
                     </th>
                     <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                         Сумма
@@ -25,7 +28,10 @@ export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transacti
                 </thead>
                 <tbody>
                 {transactions.map(transact => (
-                    <tr key={transact._id} className="border-b border-gray-200 dark:border-gray-700">
+                    <tr key={transact._id} className="border-b border-gray-200 dark:border-gray-700 text-center">
+                        <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                            {UpdateNumberCard(transact.recipient)}
+                        </td>
                         <td className="px-6 py-4 bg-gray-50 dark:bg-gray-800">
                             {transact.date}
                         </td>

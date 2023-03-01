@@ -9,13 +9,13 @@ import {selectAuth} from "../store/auth/auth.slice";
 import {BASE_URL} from "../types/baseUrl";
 import {useDebounce} from '../hooks/debounce';
 import {useSearchCardByFullNameMutation} from "../store/cards/cards.api";
+import {copyElement} from '../utils/CopyElement';
 
 const navigation = [
     {name: 'Главная', href: '/home', current: true},
-    // {name: 'Транзакции', href: '/transactions', current: false},
-    {name: 'Счета', href: '/accounts', current: false},
-    // {name: 'Кредит', href: '/credit', current: false},
-    {name: 'Поддержка', href: '/support', current: false},
+    {name: 'Транзакции', href: '/transactions', current: false},
+    // {name: 'Счета', href: '/accounts', current: false},
+    {name: 'Поддержка', href: '/support', current: false}
 ]
 
 interface HeaderInt {
@@ -27,7 +27,11 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
     const [dropdown, setDropdown] = useState<boolean>(false)
     const auth = useAppSelector(selectAuth())
     let debounced = useDebounce(search)
-    const [searchCard, {isLoading, data: cards}] = useSearchCardByFullNameMutation()
+    const [searchCard, {
+        isLoading,
+        data: cards,
+        isError: isSearchCardByFullNameError
+    }] = useSearchCardByFullNameMutation()
     useEffect(() => {
         if (debounced.length > 2) {
             searchCard(search)
@@ -37,6 +41,11 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
         setDropdown(debounced.length > 3 && cards?.length! > 0)
     }, [debounced, cards])
     const [showModal, setShowModal] = useState(false);
+
+    const copySubmit = (numberCard: string) => {
+        copyElement(numberCard)
+        setSearch("")
+    }
 
     return authorized ? (
         <>
@@ -94,6 +103,7 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                         <input type="text" id="search-navbar"
                                                className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                placeholder="Поиск по имени"
+                                               value={search}
                                                onChange={e => setSearch(e.target.value)}/>
                                     </div>
                                     {/*Дропдаун профиля*/}
@@ -177,6 +187,7 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
                                 <input type="text" id="search-navbar"
                                        className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                        placeholder="Поиск по имени"
+                                       value={search}
                                        onChange={e => setSearch(e.target.value)}/>
                             </div>
                             <div className="space-y-1 px-2 pt-2 pb-3">
@@ -199,20 +210,27 @@ export const Header: FC<HeaderInt> = ({authorized}: HeaderInt) => {
             </Disclosure>
             <LogoutPopup showModal={showModal} setShowModal={setShowModal}/>
             {dropdown &&
-                <ul className="list-none absolute top-15 mx-auto max-h-[200px] right-0 overflow-y-scroll shadow-md bg-white z-10 max-w-[400px] w-full rounded-b-xl">
+                <ul className="list-none absolute right-0 left-0 lg:right-15 top-15 mx-auto max-h-[200px] overflow-y-scroll shadow-md bg-white z-10 max-w-[400px] w-full rounded-b-xl">
                     {isLoading && <p className="text-center font-bold text-blue-700">Loading...</p>}
                     {cards?.map((card: any) => (
-                        <li className="py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer flex items-center justify-between"
+                        <li className="py-2 px-7 hover:bg-gray-600 hover:text-white transition-colors flex items-center justify-between dark:bg-gray-500"
                             key={card._id}>
                             <p>
                                 {card.owner}
                             </p>
-                            <p>
+                            <p className={"cursor-pointer hover:bg-gray-500 rounded-xl p-1 dark:hover:bg-gray-700"}
+                               onClick={() => copySubmit(card.numberCard)}>
                                 {card.numberCard}
                             </p>
                         </li>
                     ))}
-                </ul>}
+                    {isSearchCardByFullNameError &&
+                        <li className="py-2 px-4 hover:bg-gray-600 hover:text-white transition-colors flex items-center justify-between">
+                            Ничего не найдено
+                        </li>
+                    }
+                </ul>
+            }
         </>
     ) : null
 }
