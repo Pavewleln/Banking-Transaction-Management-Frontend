@@ -3,11 +3,11 @@ import {UpdateProfilePopup} from "../components/Popup/UpdateProfilePopup";
 import {useState} from "react";
 import {useAppSelector} from "../store";
 import {selectAuth} from "../store/auth/auth.slice";
-import {useGetAllMyCardsQuery} from "../store/cards/cards.api";
 import {CreditCard} from "../components/Cards/CreditCard";
 import {CreditCardsProfileSkeleton} from "../components/Skeletons/CreditCardsProfileSkeleton";
-import {ButtonForm} from "../Common/Forms/ButtonForm";
+import {ButtonForm} from "../components/Forms/ButtonForm";
 import {BASE_URL} from "../types/baseUrl";
+import { useGetAllMyCardsQuery } from "../store/cards/cards.api";
 
 export const Profile = () => {
     const [showModal, setShowModal] = useState(false);

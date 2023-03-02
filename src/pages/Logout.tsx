@@ -1,4 +1,4 @@
-import {Loader} from "../Common/Loader";
+import {Loader} from "../components/Loader";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {logout} from "../store/auth/auth.slice";

@@ -1,5 +1,5 @@
 import {ReactNode} from "react";
-import {Loader} from "../Common/Loader";
+import {Loader} from "./Loader";
 import {useGetMeQuery} from "../store/auth/auth.api";
 import {useAppSelector} from "../store";
 import {getIsToken} from "../store/auth/auth.slice";

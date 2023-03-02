@@ -1,11 +1,11 @@
 import {CreditCard} from "../Cards/CreditCard";
 import {ChangeEvent, useEffect, useState} from "react";
-import {TransferForm} from "../../Common/Forms/TransferForm";
-import {ButtonForm} from "../../Common/Forms/ButtonForm";
+import {TransferForm} from "../Forms/TransferForm";
+import {ButtonForm} from "../Forms/ButtonForm";
 import {useNavigate} from "react-router-dom";
 import {useGetAllMyCardsQuery, useGetOneCardQuery} from "../../store/cards/cards.api";
 import {CreditCardSkeleton} from "../Skeletons/CreditCardSkeleton";
-import {UpdateNumberCard} from "../../utils/updateNumberCard";
+import {UpdateNumberCard} from "../../utils/UpdateNumberCard";
 import {useWallet} from "../../hooks/useWallet";
 
 export const UserCardInformation = () => {

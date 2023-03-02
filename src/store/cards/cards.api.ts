@@ -1,26 +1,10 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {BASE_URL} from "../../types/baseUrl";
-import {RootState} from "../index";
+import { api } from "../global.api";
 import {ICreateCard, ICreditCardOut, ITransferOnCard} from "./cards.types";
 
-export const CardsApi = createApi({
-    reducerPath: 'cards/api',
-    tagTypes: ['Cards'],
-    baseQuery: fetchBaseQuery({
-        baseUrl: `${BASE_URL}cards/`,
-        prepareHeaders: (headers, {getState}) => {
-            const token = (getState() as RootState).auth.token
-            if (token) {
-                headers.set('authorization', `Bearer ${token.replace(/"/g, '')}`)
-            }
-
-            return headers
-        }
-    }),
-    refetchOnFocus: true,
+export const CardsApi = api.injectEndpoints({
     endpoints: build => ({
         getAllMyCards: build.query<ICreditCardOut[], void>({
-            query: () => 'all',
+            query: () => 'cards/all',
             providesTags: (result) =>
                 result
                     ? [
@@ -31,7 +15,7 @@ export const CardsApi = createApi({
         }),
         getOneCard: build.query<ICreditCardOut, any>({
             query: (numberCardOne) => ({
-                url: `${numberCardOne}`
+                url: `cards/${numberCardOne}`
             }),
             providesTags: () => [{type: 'Cards', id: 'LIST'}]
         }),
@@ -40,7 +24,7 @@ export const CardsApi = createApi({
         }),
         createCard: build.mutation<ICreateCard, any>({
             query: (data) => ({
-                url: 'create',
+                url: 'cards/create',
                 method: 'POST',
                 body: data
             }),
@@ -48,7 +32,7 @@ export const CardsApi = createApi({
         }),
         transferOnCard: build.mutation<ICreditCardOut, ITransferOnCard>({
             query: (data) => ({
-                url: 'transfer',
+                url: 'cards/transfer',
                 method: 'POST',
                 body: data
             }),
@@ -56,14 +40,14 @@ export const CardsApi = createApi({
         }),
         deleteCard: build.mutation<any, string | undefined>({
             query: (cardId) => ({
-                url: `${cardId}`,
+                url: `cards/${cardId}`,
                 method: 'DELETE'
             }),
             invalidatesTags: [{type: 'Cards', id: 'LIST'}]
         }),
         searchCardByFullName: build.mutation<ICreditCardOut[], string>({
             query: (fullname: string) => ({
-                url: `search`,
+                url: `cards/search`,
                 method: 'POST',
                 params: {
                     fullname: fullname.toString()

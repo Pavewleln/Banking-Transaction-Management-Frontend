@@ -1,21 +1,17 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {setupListeners} from "@reduxjs/toolkit/query";
 import authReducer from "./auth/auth.slice";
-import {AuthApi} from "./auth/auth.api";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import cardsReducer from "./cards/cards.slice";
-import {CardsApi} from "./cards/cards.api";
-import {HistoryApi} from "./history/history.api";
+import {api} from "./global.api";
 
 export const index = configureStore({
     reducer: {
         auth: authReducer,
         cards: cardsReducer,
-        [AuthApi.reducerPath]: AuthApi.reducer,
-        [CardsApi.reducerPath]: CardsApi.reducer,
-        [HistoryApi.reducerPath]: HistoryApi.reducer
+        [api.reducerPath]: api.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(AuthApi.middleware, CardsApi.middleware, HistoryApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
     devTools: process.env.NODE_ENV !== "production"
 })
 

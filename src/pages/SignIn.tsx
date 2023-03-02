@@ -1,8 +1,8 @@
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {Link, useNavigate} from "react-router-dom";
-import {TextField} from "../Common/Forms/TextField";
-import {passwordValidation, emailValidation} from "../utils/validationForm";
-import {ButtonForm} from "../Common/Forms/ButtonForm";
+import {TextField} from "../components/Forms/TextField";
+import {passwordValidation, emailValidation} from "../utils/ValidationForm";
+import {ButtonForm} from "../components/Forms/ButtonForm";
 import {useLoginMutation} from "../store/auth/auth.api";
 import {useEffect} from "react";
 import {setToken} from "../store/auth/auth.slice";

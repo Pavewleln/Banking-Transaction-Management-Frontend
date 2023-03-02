@@ -1,6 +1,6 @@
 import {FC} from "react";
 import {IPopup} from "./popup.types";
-import {TransferForm} from "../../Common/Forms/TransferForm";
+import {TransferForm} from "../Forms/TransferForm";
 
 export const TransferPopup: FC<IPopup> = ({showModal, setShowModal, cardDetails}) => {
     return (

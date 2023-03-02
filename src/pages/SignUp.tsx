@@ -1,8 +1,8 @@
 import {Link, useNavigate} from "react-router-dom";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
-import {TextField} from "../Common/Forms/TextField";
-import {fullnameValidation, passwordValidation, emailValidation} from "../utils/validationForm";
-import {ButtonForm} from "../Common/Forms/ButtonForm";
+import {TextField} from "../components/Forms/TextField";
+import {fullnameValidation, passwordValidation, emailValidation} from "../utils/ValidationForm";
+import {ButtonForm} from "../components/Forms/ButtonForm";
 import {FC, useEffect} from "react";
 import {useRegisterMutation} from "../store/auth/auth.api";
 import {setToken} from "../store/auth/auth.slice";
@@ -63,6 +63,7 @@ export const SignUp: FC = () => {
             toast.error('Ошибка. Попробуйте позже')
         }
     };
+
     return (
         <section className="bg-gray-50 dark:bg-gray-900">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

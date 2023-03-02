@@ -1,7 +1,7 @@
 import {TextField} from "./TextField";
 import {SubmitHandler, useForm, useFormState} from "react-hook-form";
 import {ButtonForm} from "./ButtonForm";
-import {cardValidation, transferValidation} from "../../utils/validationForm";
+import {cardValidation, transferValidation} from "../../utils/ValidationForm";
 import {useTransferOnCardMutation} from "../../store/cards/cards.api";
 import {FC, useEffect} from "react";
 import {toast} from "react-toastify";

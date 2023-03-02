@@ -1,6 +1,6 @@
 import {TypeCard} from "../store/cards/cards.types"
 import {Banks} from "../types/banks"
-import {ButtonForm} from "../Common/Forms/ButtonForm";
+import {ButtonForm} from "../components/Forms/ButtonForm";
 import {useEffect, useState} from "react";
 import {useCreateCardMutation} from "../store/cards/cards.api";
 import {toast} from "react-toastify";

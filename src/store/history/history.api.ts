@@ -1,26 +1,10 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {BASE_URL} from "../../types/baseUrl";
-import {RootState} from "../index";
 import {IAddHistoryTransfer, IHistory, ITransactions} from "./history.types";
+import {api} from "../global.api";
 
-export const HistoryApi = createApi({
-    reducerPath: 'history/api',
-    tagTypes: ['History'],
-    baseQuery: fetchBaseQuery({
-        baseUrl: `${BASE_URL}history/`,
-        prepareHeaders: (headers, {getState}) => {
-            const token = (getState() as RootState).auth.token
-            if (token) {
-                headers.set('authorization', `Bearer ${token.replace(/"/g, '')}`)
-            }
-
-            return headers
-        }
-    }),
-    refetchOnFocus: true,
+export const HistoryApi = api.injectEndpoints({
     endpoints: build => ({
         getAllMyHistories: build.query<ITransactions[], void>({
-            query: () => 'all',
+            query: () => 'history/all',
             providesTags: (result) =>
                 result
                     ? [
@@ -31,7 +15,7 @@ export const HistoryApi = createApi({
         }),
         getHistoryOneCard: build.query<ITransactions[], any>({
             query: (cardNumber) => ({
-                url: `card/${cardNumber}`
+                url: `history/card/${cardNumber}`
             }),
             providesTags: (result) =>
                 result
@@ -43,7 +27,7 @@ export const HistoryApi = createApi({
         }),
         addHistoryTransfer: build.mutation<IHistory, IAddHistoryTransfer>({
             query: (data) => ({
-                url: ``,
+                url: `history/`,
                 method: 'POST',
                 body: data
             }),

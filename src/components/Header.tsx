@@ -3,11 +3,11 @@ import {FC, Fragment, useEffect, useState} from "react";
 import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {Link, NavLink} from "react-router-dom";
 import {LogoutPopup} from "./Popup/LogoutPopup";
-import {classNames} from '../utils/classNames';
+import {classNames} from '../utils/ClassNames';
 import {useAppSelector} from "../store";
 import {selectAuth} from "../store/auth/auth.slice";
 import {BASE_URL} from "../types/baseUrl";
-import {useDebounce} from '../hooks/debounce';
+import {useDebounce} from '../hooks/useDebounce';
 import {useSearchCardByFullNameMutation} from "../store/cards/cards.api";
 import {copyElement} from '../utils/CopyElement';
 

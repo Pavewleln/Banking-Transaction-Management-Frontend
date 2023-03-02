@@ -22,6 +22,7 @@ export interface ITransactions {
     user: string,
     moneyType: TypeCard.account | TypeCard.receiving | TypeCard.credit | TypeCard.transfer
     _id: string,
+    currencyRecipient: Banks.RUB | Banks.USD,
     createdAt: string,
     updatedAt: string,
     __v: number

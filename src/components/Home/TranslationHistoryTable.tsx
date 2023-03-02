@@ -1,6 +1,6 @@
 import {FC} from "react";
 import { ITranslationHistoryTable } from "../../store/history/history.types";
-import {UpdateNumberCard} from "../../utils/updateNumberCard";
+import {UpdateNumberCard} from "../../utils/UpdateNumberCard";
 
 export const TranslationHistoryTable: FC<ITranslationHistoryTable> = ({transactions, cardNumber}) => {
     function classNames(...classes: string[]) {

@@ -1,6 +1,6 @@
 import credit_card from "../../assets/img/credir_card.png"
 import {FC} from "react";
-import {UpdateNumberCard} from "../../utils/updateNumberCard";
+import {UpdateNumberCard} from "../../utils/UpdateNumberCard";
 import {ICreditCard} from "../../store/cards/cards.types";
 
 export const CreditCard: FC<ICreditCard> = ({cardDetails}) => {
